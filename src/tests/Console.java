@@ -248,10 +248,10 @@ public class Console extends JFrame {
                 new IRChoose(Console.this, true, data);
                 try {
                     GetData.setData(false);
+                    GetData.IR();
                     GetData.setFile(file);
                     devices=GetData.findData(6);
                     point=GetData.getPoint();
-                    
                 } catch (IOException e1) {}
                 try {
                     dataProbe = new DataProbe[point.size()];

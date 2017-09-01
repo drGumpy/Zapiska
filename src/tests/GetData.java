@@ -15,13 +15,19 @@ public class GetData {
     static private Dev patern = new Dev();
     
     static private Types typ = new Types();
-        
+    
+    static private boolean IR= false;
+    
     static void setData(boolean Rh){
         typ.dataset(Rh);    
     }
     
     static void setFile(File  add_file){
         typ.Filesset(add_file);
+    }
+    
+    static void IR(){
+        IR=true;;   
     }
     
     // pobranie danych wzorca

@@ -23,7 +23,7 @@ public class IRGenerate {
 
     //wygenerowanie ≈õwiadectwa wzorcowania
     private void _generateCal(ArrayList<CertificateValue> data,Certificate type) throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("≈öwiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("åwiadectwo wzorcowania");
         int col;
         //umieszczenie daty i numeru ≈õwiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
@@ -74,7 +74,7 @@ public class IRGenerate {
         }
         line+=2;
         sheet.setValueAt(type.pyrometr, 3, line);
-        sheet.setValueAt("Pomiar wykonany dla emisyjno≈õci r√≥wnej: "+ 
+        sheet.setValueAt("Pomiar wykonany dla emisyjnoúci rÛwnej: "+ 
         		type.pyrometr.emissivity +".", 3, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       

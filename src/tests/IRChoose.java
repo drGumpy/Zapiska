@@ -36,11 +36,9 @@ public class IRChoose extends JDialog{
 	private String path = "C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\zapiski\\";
 	
 	private String[] blackBody= {"123456", "456789"};
-	private ArrayList<Certificate> data = new ArrayList<Certificate>();
+	private static ArrayList<Certificate> data = new ArrayList<Certificate>();
 	
 	private int num;
-	
-    boolean status= false;
 	
 	private boolean _compareArray(int[][] point, int[][] point2){
 		if(point[0].length!=point2[0].length)
@@ -101,7 +99,8 @@ public class IRChoose extends JDialog{
 	private int _valideDistance(String data){
 		data = data.replace(",", ".");
 		data = data.replace("[^\\d.]", "");
-		data = data.substring(0, data.indexOf("."));;
+		data = data+".";
+		data = data.substring(0, data.indexOf("."));
 		int ans;
 		try{
 			ans = Integer.parseInt(data);
@@ -293,7 +292,7 @@ public class IRChoose extends JDialog{
 	}
 	
 	private void _close(){
-		super.dispose();
+		this.dispose();
 	}
 	
 	private int[] _findPoints(){
@@ -318,21 +317,25 @@ public class IRChoose extends JDialog{
 	}
 	
 	private void _remove(ArrayList<Integer> toRemove){
-		for(int i=0; i<toRemove.size(); i++)
-			data.remove(i);
+		for(int i=0; i<toRemove.size(); i++){
+				data.remove(toRemove.get(i).intValue());
+		}
 	}
 	
-	private void _setData() throws FileNotFoundException{
+	private void _setData(){
 		int[] points= _findPoints();
 		ArrayList<Integer> toRemove = new ArrayList<Integer>();
 		//next
 		DataProbe[][] blackBodyError= new DataProbe[blackBody.length][points.length];
 		TProbe[] blackBodyData= new TProbe[blackBody.length];
 		for(int i=0; i<blackBody.length; i++){
-			blackBodyData[i]= new TProbe(
-					new File(path+blackBody[i]+".txt"));
-			for(int j=0; j<points.length; j++){
-				blackBodyError[i][j]= blackBodyData[i].get(points[i], 0);
+			try {
+				blackBodyData[i]= new TProbe(
+						new File(path+blackBody[i]+".txt"));
+				for(int j=0; j<points.length; j++){
+					blackBodyError[i][j]= blackBodyData[i].get(points[i], 0);
+				}
+			} catch (FileNotFoundException e) {
 			}
 		}
 		for(int i=0; i<data.size(); i++){
@@ -340,19 +343,23 @@ public class IRChoose extends JDialog{
 				toRemove.add(i);
 				continue;
 			}
+			data.get(i).pyrometr = new IRData();
+			data.get(i).pyrometr.blackBodyError= new double[data.get(i).point[0].length];
 			data.get(i).pyrometr.emissivity=_valideEmissivity(emissivity[i].getText());
 			data.get(i).pyrometr.distance =_valideDistance(distance[i].getText());
 			data.get(i).pyrometr.reference= new double[data.get(i).point[0].length];
 			for(int j=0; j<data.get(i).point[0].length;j++){
-				if(blackBodyChoose[i][j].equals("radiator")){
-					data.get(i).pyrometr.blackBodyError[i]=0;
+				
+				if(blackBodyChoose[i][j].getSelectedItem().equals("radiator")){
+					data.get(i).pyrometr.blackBodyError[j]=0;
 					continue;
 				}
 				data.get(i).pyrometr.reference[j]=
 						_valideReferenceValue(referenceValue[i][j].getText());
 				int k=0;
-				for(;!blackBodyChoose[i][j].equals(blackBody[k]);k++){}
-				data.get(i).pyrometr.blackBodyError[j]=blackBodyError[k][j].uncertaintyT;
+				for(;blackBodyChoose[i][j].getSelectedItem().equals(blackBody[k]);k++){}
+				data.get(i).pyrometr.blackBodyError[j]= 0;
+						//blackBodyError[k][j].uncertaintyT;
 			}
 		}
 		Collections.reverse(toRemove);
@@ -375,11 +382,8 @@ public class IRChoose extends JDialog{
 		c.gridwidth=3;
 		jp.add(accept,c);
 		accept.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				try {
-					_setData();
-				} catch (FileNotFoundException e1) {}
-				status = true;
+			public void actionPerformed(ActionEvent e){		
+				_setData();
 				_close();
 			}
 		});
@@ -401,9 +405,9 @@ public class IRChoose extends JDialog{
 			JTabbedPane tabbedPane = new JTabbedPane();
 			for(int i=0; i<num; i+=n){
 				if(num>i+n)
-					tabbedPane.addTab(i+1+" Ã· "+(i+n), _panel(i, i+n));
+					tabbedPane.addTab(i+1+" ÷ "+(i+n), _panel(i, i+n));
 				else
-					tabbedPane.addTab(i+1+" Ã· "+num, _panel(i, num));
+					tabbedPane.addTab(i+1+" ÷ "+num, _panel(i, num));
 			}
 			add(tabbedPane);
 		}else{
@@ -414,7 +418,7 @@ public class IRChoose extends JDialog{
 	public IRChoose(Frame owner, boolean modal, ArrayList<Certificate> _data){
 		super(owner, modal);
 		data= _data;
-		int num = data.size();
+		num = data.size();
 		blackBodyChoose = new JComboBox[num][];
 		referenceValue = new JTextField[num][];
 		_start();
