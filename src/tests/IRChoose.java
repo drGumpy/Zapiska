@@ -252,7 +252,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=4;
 		JLabel emissivityT = new JLabel();
-		emissivityT.setText("emisyjnoÅ›Ä‡");
+		emissivityT.setText("emisyjnoœæ");
 		jp.add(emissivityT, c);
 		emissivity[num] = new JTextField(10);
 		emissivity[num].setEditable(true);
@@ -269,7 +269,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=5;
 		JLabel distanceT = new JLabel();
-		distanceT.setText("odlegÅ‚oÅ›Ä‡");
+		distanceT.setText("odlegleg³oœæ");
 		jp.add(distanceT, c);
 		distance[num] = new JTextField(10);
 		distance[num].setEditable(true);

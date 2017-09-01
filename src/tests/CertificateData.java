@@ -139,7 +139,7 @@ public class CertificateData {
     
     //wyszukiwanie danych o wzorcowanych urządzeniach
     private static void _findDeviceData() throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Urządzenia");
+        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Urz�dzenia");
         int i=0;
         String model;
         while(sheet.getValueAt(0,i)!=""){

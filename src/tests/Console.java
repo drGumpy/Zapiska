@@ -152,7 +152,7 @@ public class Console extends JFrame {
     }
     
     private static JPanel _choosePath(String name, String path, JTextField field){
-    	 JButton b= new JButton("zmieÅ„");
+    	 JButton b= new JButton("zmieñ");
          JPanel jp = new JPanel();
          jp.setPreferredSize(new Dimension(650, 50));
          jp.setMinimumSize(jp.getPreferredSize());
@@ -179,12 +179,12 @@ public class Console extends JFrame {
     private static JPanel _calibrationType() {
         ButtonGroup bg = new ButtonGroup();
         JPanel jp = new JPanel();
-        String title = "iloÅ›c punktÃ³w pomiarowych i rodzaj wzorcowania";
+        String title = "iloœc punktó³w pomiarowych i rodzaj wzorcowania";
         title = title.substring(title.lastIndexOf('.') + 1);
         jp.setBorder(new TitledBorder(title));
         
         t  = new JRadioButton("temperatura");
-        rh = new JRadioButton("temperatura i wilgotnoÅ›Ä‡");
+        rh = new JRadioButton("temperatura i wilgotno\\œ\\æ");
  
         for(int i = 1; i < 7; i++)
                pointsBox.addItem(i);
@@ -230,7 +230,7 @@ public class Console extends JFrame {
     private JPanel _pyrometers(){
     	JPanel jp = new JPanel();
     	JButton calibrationData = new JButton("wybierz zlecenia");
-    	JButton generation= new JButton("generuj Å›wiadetwa");
+    	JButton generation= new JButton("generuj \\œwiadetwa");
     	
     	calibrationData.setMinimumSize(new Dimension(200, 23));
     	generation.setMinimumSize(new Dimension(200, 23));
@@ -447,7 +447,7 @@ public class Console extends JFrame {
     	
     	c.gridy=3;
     	add(_choosePath("Folder zapisu Å›wiadectw wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\Å›wiadectwa\\", 
+    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\Œwiadectwa\\", 
     			certificate), c);
     	
     	JTabbedPane tabbedPane = new JTabbedPane();
@@ -468,7 +468,7 @@ public class Console extends JFrame {
         SwingUtilities.invokeLater(new Runnable(){
             Console f = new Console();
             public void run(){
-                f.setTitle("wydawanie Å›wiadectw dla biedakÃ³w");
+                f.setTitle("wydawanie Å›wiadectw dla biedaków");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setSize(800,600);
                 f.setVisible(true);
