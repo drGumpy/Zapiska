@@ -160,8 +160,7 @@ public class IRChoose extends JDialog{
 		jp.setLayout(new GridBagLayout());
 		int[][] array= data.get(num).point;	
 		blackBodyChoose[num]= new JComboBox[array[0].length];
-		referenceValue[num]= new JTextField[array[0].length];
-		
+		referenceValue[num]= new JTextField[array[0].length];	
 		GridBagConstraints c= new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx=0;

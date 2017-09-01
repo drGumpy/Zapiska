@@ -18,7 +18,7 @@ public class PutDate {
     static void date(ArrayList<String> done) throws IOException{
          final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Zlecenia");
          int d=0;
-         if(done.size()>1)
+         if(done.size()>0)
              d=Integer.parseInt(done.get(0));
          else
              return;

@@ -48,12 +48,15 @@ public class IRGenerate {
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
-        
+        System.out.println("kolumny: "+ sheet.getColumnCount());
+        System.out.println("wiersze: "+ sheet.getRowCount());
+  
 
         int line=76;
         int points=data.size();
         int lenght;
         lenght = points;
+        System.out.println(lenght+" " +data.get(lenght-1).deviceT);
         if(lenght>3)
         	lenght=3;
         for(int i=0; i<lenght; i++){
@@ -155,8 +158,8 @@ public class IRGenerate {
     
     //znalezienie odpowiednich szablonów
     private void _findData(){
-    	note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\zT.ods");
-    	cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swT.ods");
+    	note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods");
+    	cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_T.ods");
     }
     //umieszczanie danych na temat wzorcowania
     void putEnvironment(String[] environment){

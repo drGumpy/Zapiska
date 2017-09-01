@@ -34,7 +34,7 @@ public class Generate {
             if(!probeSerial.equals("")){
                 val +=probeSerial+" ";
             }
-            val+= "(nazwa kanaÅ‚u: "+chanel+")";
+            val+= "(nazwa kana³u: "+chanel+")";
         }
         
         return val;
@@ -55,7 +55,7 @@ public class Generate {
                 file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swTx2.ods");
             }
         }
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Åšwiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Œwiadectwo wzorcowania");
         int col;
         //umieszczenie daty i numeru Å›wiadectwa
         if(Rh){
@@ -91,7 +91,7 @@ public class Generate {
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
         sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("WilgotnoÅ›Ä‡: "+environment[1], col , 31);
+        sheet.setValueAt("Wilgotnoœæ: "+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
@@ -165,7 +165,7 @@ public class Generate {
             }
         }
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
-        sheet.getSpreadSheet().saveAs(new File(name));       
+        sheet.getSpreadSheet().saveAs(new File(name));
     }
     
     // generowanie zapiski wzorcowania
@@ -305,19 +305,19 @@ public class Generate {
             sheet.getSpreadSheet().saveAs(new File(name));
             _generateCal(cdata,type);
             done.add(type.num);
-        } catch (IOException e) {}
+        } catch (IOException e) {System.out.println("b³¹d przy generowaniu");}
     }
     
     //znalezienie odpowiednich szablonÃ³w
     private void _findData(){
         if(patern.averageRh!=null){
             Rh = true;
-            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\zRh.ods");
-            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swRh.ods");
+            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_Rh.ods");
+            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Rh.ods");
         }else{
             Rh = false;
-            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\zT.ods");
-            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swT.ods");
+            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods");
+            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_T.ods");
         }
     }
     //umieszczanie danych o wzorcowaniu
@@ -363,7 +363,9 @@ public class Generate {
         }
     }  
     //lista wykonanych Å›wiadectw wzorcowania
-    ArrayList<String> get_done() {
+    ArrayList<String> getDone() {
+    	for(int i =0; i<done.size(); i++)
+    		System.out.println(done.get(i));
         return done;
     }
 }

@@ -28,6 +28,7 @@ public class Console extends JFrame {
     
 	//dane na temat wzorcowania
     static ArrayList<Certificate> data = new ArrayList<Certificate>();
+    static ArrayList<Data> calPoint = new ArrayList<Data>();
     
     private static DataProbe[] dataProbe;
     
@@ -184,7 +185,7 @@ public class Console extends JFrame {
         jp.setBorder(new TitledBorder(title));
         
         t  = new JRadioButton("temperatura");
-        rh = new JRadioButton("temperatura i wilgotno\\œ\\æ");
+        rh = new JRadioButton("temperatura i wilgotnoœæ");
  
         for(int i = 1; i < 7; i++)
                pointsBox.addItem(i);
@@ -314,7 +315,12 @@ public class Console extends JFrame {
                 long startTime = System.currentTimeMillis();
                 
                 File file = new File(sheet.getText());
-                PutData.set(Rh, file ,points);
+                PutData.set(Rh, file , points);
+                try {
+                    calPoint=PutData.getPoints();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 PutData.run();
                 PutData.clean();
                 check=false;
@@ -347,7 +353,7 @@ public class Console extends JFrame {
                     devices=GetData.findData(points);
                     patern=GetData.getPatern();
                     point=GetData.getPoint();
-                } catch (IOException e1) {}
+                } catch (IOException e1) {System.out.println("b³¹d pobierania danych");}
                 
                 try {
                     dataProbe = new DataProbe[point.size()];
@@ -363,7 +369,7 @@ public class Console extends JFrame {
                             rh=Integer.parseInt(point.get(i).hum);
                         dataProbe[i]=probe.get(t, rh);
                     }
-                } catch (IOException e1) {}
+                } catch (IOException e1) {System.out.println("b³¹d wzorca");}
                 
                 Chamber cham= new Chamber();
                 cham.start(Rh);
@@ -390,7 +396,7 @@ public class Console extends JFrame {
                 try {
                     File file = new File(sheet.getText());
                     PutDate.putFile(file);
-                    PutDate.date(make.get_done());
+                    PutDate.date(make.getDone());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -442,12 +448,12 @@ public class Console extends JFrame {
     	
     	c.gridy=2;
     	add(_choosePath("Folder zapisu zapisek z wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\zapiski\\",
+    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\Zapiski\\",
     			notes), c);
     	
     	c.gridy=3;
     	add(_choosePath("Folder zapisu Å›wiadectw wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\Œwiadectwa\\", 
+    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\Œwiadectwa wzorcowania\\", 
     			certificate), c);
     	
     	JTabbedPane tabbedPane = new JTabbedPane();
