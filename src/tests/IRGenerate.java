@@ -23,7 +23,7 @@ public class IRGenerate {
 
     //wygenerowanie ≈õwiadectwa wzorcowania
     private void _generateCal(ArrayList<CertificateValue> data,Certificate type) throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("åwiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("≈öwiadectwo wzorcowania");
         int col;
         //umieszczenie daty i numeru ≈õwiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
@@ -48,8 +48,8 @@ public class IRGenerate {
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
-        System.out.println("kolumny: "+ sheet.getColumnCount());
-        System.out.println("wiersze: "+ sheet.getRowCount());
+//        System.out.println("kolumny: "+ sheet.getColumnCount());
+//        System.out.println("wiersze: "+ sheet.getRowCount());
   
 
         int line=76;
@@ -77,7 +77,7 @@ public class IRGenerate {
         }
         line+=2;
         sheet.setValueAt(type.pyrometr, 3, line);
-        sheet.setValueAt("Pomiar wykonany dla emisyjnoúci rÛwnej: "+ 
+        sheet.setValueAt("Pomiar wykonany dla emisyjno≈õci r√≥wnej: "+ 
         		type.pyrometr.emissivity +".", 3, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       
@@ -141,6 +141,9 @@ public class IRGenerate {
                 val.deviceT = MetrologyMath.round(div,round).replace(".", ",");
                 val.errorT = MetrologyMath.round(div-pt,round).replace(".", ",");
                 val.uncertaintyT = MetrologyMath.round(2*unc,round).replace(".", ",");
+                
+                System.out.println(i+"/t"+val.probeT+"/t"+val.deviceT+"/t"+val.errorT
+                		+"/t"+val.uncertaintyT);
                 
                 sheet.setValueAt(val.probeT, 5, line+17);
                 sheet.setValueAt(val.deviceT, 7, line+17);

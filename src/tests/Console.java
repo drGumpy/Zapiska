@@ -64,7 +64,7 @@ public class Console extends JFrame {
         jp.setPreferredSize(new Dimension(400, 80));
         jp.setMaximumSize(jp.getPreferredSize()); 
         jp.setMinimumSize(jp.getPreferredSize());
-        jp.setBorder(new TitledBorder("Warunki Œrodowiskowe"));
+        jp.setBorder(new TitledBorder("Warunki Å›rodowiskowe"));
         String[] title = {"t min    ","t max   ","Rh min ","Rh max"};
         for(int i=0; i<4;i++){
             environment[i] = new JTextField(10);
@@ -153,7 +153,7 @@ public class Console extends JFrame {
     }
     
     private static JPanel _choosePath(String name, String path, JTextField field){
-    	 JButton b= new JButton("zmieñ");
+    	 JButton b= new JButton("zmieÅ„");
          JPanel jp = new JPanel();
          jp.setPreferredSize(new Dimension(650, 50));
          jp.setMinimumSize(jp.getPreferredSize());
@@ -176,16 +176,17 @@ public class Console extends JFrame {
          });
         return jp; 
     }   
+   
     //rodzaj wykonywanego wzorcowania
     private static JPanel _calibrationType() {
         ButtonGroup bg = new ButtonGroup();
         JPanel jp = new JPanel();
-        String title = "iloœc punktó³w pomiarowych i rodzaj wzorcowania";
+        String title = "iloÅ›c punktÃ³w pomiarowych i rodzaj wzorcowania";
         title = title.substring(title.lastIndexOf('.') + 1);
         jp.setBorder(new TitledBorder(title));
         
         t  = new JRadioButton("temperatura");
-        rh = new JRadioButton("temperatura i wilgotnoœæ");
+        rh = new JRadioButton("temperatura i wilgotnoÅ›Ä‡");
  
         for(int i = 1; i < 7; i++)
                pointsBox.addItem(i);
@@ -228,10 +229,11 @@ public class Console extends JFrame {
 		super.dispose();
 	}
     
+    //wzorcowanie pirometrÃ³w
     private JPanel _pyrometers(){
     	JPanel jp = new JPanel();
     	JButton calibrationData = new JButton("wybierz zlecenia");
-    	JButton generation= new JButton("generuj \\œwiadetwa");
+    	JButton generation= new JButton("generuj Å›wiadetwa");
     	
     	calibrationData.setMinimumSize(new Dimension(200, 23));
     	generation.setMinimumSize(new Dimension(200, 23));
@@ -269,6 +271,7 @@ public class Console extends JFrame {
                 generation.setEnabled(true);
             }    
     	});
+    	
     	generation.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e) {
                  IRGenerate make = new IRGenerate();
@@ -297,7 +300,7 @@ public class Console extends JFrame {
     	return jp;
     }
     
-    //wyÅ›wietlenie gui
+    //wzorcowanie w komorze klimatycznej
     private JPanel _climateChamber(){
     	JPanel jp = new JPanel();
     	jp.setLayout(new GridBagLayout());
@@ -353,7 +356,7 @@ public class Console extends JFrame {
                     devices=GetData.findData(points);
                     patern=GetData.getPatern();
                     point=GetData.getPoint();
-                } catch (IOException e1) {System.out.println("b³¹d pobierania danych");}
+                } catch (IOException e1) {System.out.println("bÅ‚Ä…d pobierania danych");}
                 
                 try {
                     dataProbe = new DataProbe[point.size()];
@@ -369,7 +372,7 @@ public class Console extends JFrame {
                             rh=Integer.parseInt(point.get(i).hum);
                         dataProbe[i]=probe.get(t, rh);
                     }
-                } catch (IOException e1) {System.out.println("b³¹d wzorca");}
+                } catch (IOException e1) {System.out.println("bÅ‚Ä…d wzorca");}
                 
                 Chamber cham= new Chamber();
                 cham.start(Rh);
@@ -378,7 +381,6 @@ public class Console extends JFrame {
                 generation.setEnabled(true);
                 long endTime   = System.currentTimeMillis();
                 System.out.println("czas: " +(endTime - startTime)/1000.0 + " s");
-                
             }
         });
         //wygenerowanie Å›wiadectw wzorcowania
@@ -448,12 +450,12 @@ public class Console extends JFrame {
     	
     	c.gridy=2;
     	add(_choosePath("Folder zapisu zapisek z wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\Zapiski\\",
+    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowaÅ„\\Zapiski\\",
     			notes), c);
     	
     	c.gridy=3;
     	add(_choosePath("Folder zapisu Å›wiadectw wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\Œwiadectwa wzorcowania\\", 
+    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowaÅ„\\Åšwiadectwa wzorcowania\\", 
     			certificate), c);
     	
     	JTabbedPane tabbedPane = new JTabbedPane();
@@ -467,14 +469,13 @@ public class Console extends JFrame {
     	c.ipady= 200;
     	add(tabbedPane, c);
     }
-    
-    
+       
     //uruchomienie programu
     public static void run(){
         SwingUtilities.invokeLater(new Runnable(){
             Console f = new Console();
             public void run(){
-                f.setTitle("wydawanie Å›wiadectw dla biedaków");
+                f.setTitle("wydawanie Å›wiadectw dla biedakÃ³w");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setSize(800,600);
                 f.setVisible(true);
