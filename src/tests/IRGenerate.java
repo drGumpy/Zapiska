@@ -19,33 +19,33 @@ public class IRGenerate {
     
     private String[] environment;
     
-    // informacja odnoœnie sond i kana³ów urz¹dzeñ
+    // informacja odnoï¿½nie sond i kanaï¿½ï¿½w urzï¿½dzeï¿½
 
-    //wygenerowanie œwiadectwa wzorcowania
+    //wygenerowanie ï¿½wiadectwa wzorcowania
 
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("Œwiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("ï¿½wiadectwo wzorcowania");
         int col;
-        //umieszczenie daty i numeru œwiadectwa
+        //umieszczenie daty i numeru ï¿½wiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
         sheet.setValueAt(new Date( ), 8 , 70);
         sheet.setValueAt(type.num, 22 , 13);
         sheet.setValueAt(type.num, 22 , 70);
         col=12;
         
-        //dane na temat przyrz¹du
+        //dane na temat przyrzï¿½du
         String name =String.format("%s, model: %s, producent: %s, nr seryjny: %s",
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
        
         name+=".";
-        //dane na temat klientów i wzorcowañ
+        //dane na temat klientï¿½w i wzorcowaï¿½
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
         sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("Wilgotnoœæ: "+environment[1], col , 31);
+        sheet.setValueAt("Wilgotnoï¿½ï¿½: "+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
@@ -68,7 +68,7 @@ public class IRGenerate {
 
         line=95;
         sheet.setValueAt(type.pyrometr, 4, line);
-        sheet.setValueAt("Emisyjnoœæ Ÿród³a: "+ 
+        sheet.setValueAt("Emisyjnoï¿½ï¿½ ï¿½rï¿½dï¿½a: "+ 
         		type.pyrometr.emissivity +".", 4, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       
@@ -81,7 +81,6 @@ public class IRGenerate {
         ArrayList<CertificateValue> cdata = new ArrayList<CertificateValue>();
         try {
             final Sheet sheet = SpreadSheet.createFromFile(note).getSheet("Wyniki wzorcowania");
-            int referenceNum=0;
             for(int i=0; i<point; i++){
                 if(device.q[i] || !dataProbe[i].question)
                     continue;
@@ -98,7 +97,7 @@ public class IRGenerate {
                 sheet.setValueAt(type.device.producent, 3 , line+11);
                 sheet.setValueAt(type.device.resolutionT, 3 , line+13);
                 for(int j=0; j<10; j++){
-                    sheet.setValueAt(type.pyrometr.reference[referenceNum],
+                    sheet.setValueAt(type.pyrometr.reference[i],
                     		1 , line+17+j);
                     sheet.setValueAt(device.dataT[i][j], 3 , line+17+j);
                 }
@@ -106,26 +105,25 @@ public class IRGenerate {
                 double[] uncT= new double[7];
                 uncT[0]=device.standardT[i];
                 uncT[1]=Double.parseDouble(type.device.resolutionT)/Math.sqrt(3);
-                uncT[2]=type.pyrometr.reference[referenceNum];
+                uncT[2]=0;
                 uncT[3]=0.1/Math.sqrt(3);
                 uncT[4]=dataProbe[i].uncertaintyT/2;
                 uncT[5]=dataProbe[i].driftT/Math.sqrt(3);
-                uncT[6]=type.pyrometr.blackBodyError[referenceNum]/2;
+                uncT[6]=type.pyrometr.blackBodyError[i]/2;
  
                 sheet.setValueAt(device.averageT[i], 7 , line+5);
-                sheet.setValueAt(type.pyrometr.reference[referenceNum], 7 , line+7);
+                sheet.setValueAt(type.pyrometr.reference[i], 7 , line+7);
                 sheet.setValueAt(dataProbe[i].correctionT, 7 , line+9);
                 sheet.setValueAt(type.device.resolutionT, 9 , line+6);
                 sheet.setValueAt(dataProbe[i].uncertaintyT, 9, line+9);
                 sheet.setValueAt(dataProbe[i].driftT, 9, line+10);
-                sheet.setValueAt(type.pyrometr.blackBodyError[referenceNum], 9, line+11);
+                sheet.setValueAt(type.pyrometr.blackBodyError[i], 9, line+11);
                 for(int j=0; j<uncT.length; j++){
                     sheet.setValueAt(uncT[j], 13, line+5+j);
                 }
                 double unc =MetrologyMath.uncertainty(uncT);
                 double round = MetrologyMath.findRound(2*unc, Double.parseDouble(type.device.resolutionT));
-                //poprawiæ obliczenia
-                double pt=MetrologyMath.round_d(type.pyrometr.reference[referenceNum]+
+                double pt=MetrologyMath.round_d(type.pyrometr.reference[i]+
                 		dataProbe[i].correctionT,round);
                 double div =MetrologyMath.round_d(device.averageT[i],round);
                 val.probeT= MetrologyMath.round(pt,round).replace(".", ",");
@@ -170,7 +168,7 @@ public class IRGenerate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odnoœnie wzorcowania
+    //parowanie informacji odnoï¿½nie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();

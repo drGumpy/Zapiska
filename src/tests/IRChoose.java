@@ -250,7 +250,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=4;
 		JLabel emissivityT = new JLabel();
-		emissivityT.setText("emisyjnoœæ");
+		emissivityT.setText("emisyjnoï¿½ï¿½");
 		jp.add(emissivityT, c);
 		emissivity[num] = new JTextField(10);
 		emissivity[num].setEditable(true);
@@ -267,7 +267,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=5;
 		JLabel distanceT = new JLabel();
-		distanceT.setText("odlegleg³oœæ");
+		distanceT.setText("odleglegï¿½oï¿½ï¿½");
 		jp.add(distanceT, c);
 		distance[num] = new JTextField(10);
 		distance[num].setEditable(true);
@@ -350,15 +350,15 @@ public class IRChoose extends JDialog{
 			for(int j=0; j<data.get(i).point[0].length;j++){
 				
 				if(blackBodyChoose[i][j].getSelectedItem().equals("radiator")){
-					data.get(i).pyrometr.blackBodyError[j]=0;
+					data.get(i).pyrometr.blackBodyError[j]=0,2;
 					continue;
 				}
 				data.get(i).pyrometr.reference[j]=
 						_valideReferenceValue(referenceValue[i][j].getText());
 				int k=0;
 				for(;blackBodyChoose[i][j].getSelectedItem().equals(blackBody[k]);k++){}
-				data.get(i).pyrometr.blackBodyError[j]= 0;
-						//blackBodyError[k][j].uncertaintyT;
+				data.get(i).pyrometr.blackBodyError[j]= 
+						blackBodyError[k][j].uncertaintyT;
 			}
 		}
 		Collections.reverse(toRemove);
@@ -404,9 +404,9 @@ public class IRChoose extends JDialog{
 			JTabbedPane tabbedPane = new JTabbedPane();
 			for(int i=0; i<num; i+=n){
 				if(num>i+n)
-					tabbedPane.addTab(i+1+" ÷ "+(i+n), _panel(i, i+n));
+					tabbedPane.addTab(i+1+" ï¿½ "+(i+n), _panel(i, i+n));
 				else
-					tabbedPane.addTab(i+1+" ÷ "+num, _panel(i, num));
+					tabbedPane.addTab(i+1+" ï¿½ "+num, _panel(i, num));
 			}
 			add(tabbedPane);
 		}else{
