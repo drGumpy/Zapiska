@@ -41,7 +41,7 @@ public class Generate {
     }
     
     //wygenerowanie świadectwa wzorcowania
-    private void _generateCal(ArrayList<CertificateValue> data,Certificate type) throws IOException{
+    private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         boolean sw2 = false;
         File file =cal;
         //typ świadectwa

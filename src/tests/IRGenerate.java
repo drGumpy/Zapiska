@@ -22,7 +22,7 @@ public class IRGenerate {
     // informacja odno≈õnie sond i kana≈Ç√≥w urzƒÖdze≈Ñ
 
     //wygenerowanie ≈õwiadectwa wzorcowania
-    private void _generateCal(ArrayList<CertificateValue> data,Certificate type) throws IOException{
+    private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("åwiadectwo wzorcowania");
         int col;
         //umieszczenie daty i numeru ≈õwiadectwa
@@ -44,41 +44,31 @@ public class IRGenerate {
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
         sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("Wilgotno≈õƒá: "+environment[1], col , 31);
+        sheet.setValueAt("WilgotnoúÊá: "+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
-        System.out.println("kolumny: "+ sheet.getColumnCount());
-        System.out.println("wiersze: "+ sheet.getRowCount());
-  
-
-        int line=76;
+        int line=84;
         int points=data.size();
         int lenght;
         lenght = points;
         System.out.println(lenght+" " +data.get(lenght-1).deviceT);
+        System.out.println(type.pyrometr.emissivity);
         if(lenght>3)
         	lenght=3;
         for(int i=0; i<lenght; i++){
+        	System.out.println(i);      	
         	sheet.setValueAt(data.get(i).probeT, 3, line);
         	sheet.setValueAt(data.get(i).deviceT, 12, line);
         	sheet.setValueAt(data.get(i).errorT, 21, line);
         	sheet.setValueAt(data.get(i).uncertaintyT, 30, line);
         	line+=2;
         }
-        if(lenght<3){
-        	for(int i=0; i<3-lenght; i++){
-        		sheet.setValueAt("", 3, line);
-        		sheet.setValueAt("", 12, line);
-        		sheet.setValueAt("", 21, line);
-        		sheet.setValueAt("", 30, line);
-        		line+=2;
-        	}
-        }
-        line+=2;
-        sheet.setValueAt(type.pyrometr, 3, line);
+
+        line=95;
+        sheet.setValueAt(type.pyrometr, 4, line);
         sheet.setValueAt("Pomiar wykonany dla emisyjnoúci rÛwnej: "+ 
-        		type.pyrometr.emissivity +".", 3, line+1);
+        		type.pyrometr.emissivity +".", 4, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       
     }

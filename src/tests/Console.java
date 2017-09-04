@@ -270,7 +270,7 @@ public class Console extends JFrame {
             }    
     	});
     	generation.addActionListener(new ActionListener(){
-             public void actionPerformed(ActionEvent e) {
+             public void actionPerformed(ActionEvent e) {       	
                  IRGenerate make = new IRGenerate();
                  make.putDataProbe(dataProbe);
                  make.putDevice(devices);
