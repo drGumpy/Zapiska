@@ -48,11 +48,11 @@ public class Generate {
         if(!Rh){
             if(type.calibrationCode.equals("SW2")){
                 sw2=true;
-                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swTx2.ods");
+                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Tx2.ods");
                 }
-            if(type.declarant.name.equals("") && type.device.model.equals("810-210")){
+            if(type.declarant.name.equals(Special.s) && type.device.model.equals("810-210")){
                 sw2=true;
-                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\swTx2.ods");
+                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Tx2.ods");
             }
         }
         final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("åwiadectwo wzorcowania");
@@ -305,7 +305,10 @@ public class Generate {
             sheet.getSpreadSheet().saveAs(new File(name));
             _generateCal(cdata,type);
             done.add(type.num);
-        } catch (IOException e) {System.out.println("b≥πd przy generowaniu");}
+        } catch (IOException e) {
+        	System.out.println("b≥πd przy generowaniu");
+        	e.printStackTrace();
+    	}
     }
     
     //znalezienie odpowiednich szablon√≥w
@@ -364,8 +367,6 @@ public class Generate {
     }  
     //lista wykonanych ≈õwiadectw wzorcowania
     ArrayList<String> getDone() {
-    	for(int i =0; i<done.size(); i++)
-    		System.out.println(done.get(i));
         return done;
     }
 }

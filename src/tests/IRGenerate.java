@@ -19,33 +19,33 @@ public class IRGenerate {
     
     private String[] environment;
     
-    // informacja odno≈õnie sond i kana≈Ç√≥w urzƒÖdze≈Ñ
+    // informacja odnoúnie sond i kana≥Ûw urzπdzeÒ
 
-    //wygenerowanie ≈õwiadectwa wzorcowania
+    //wygenerowanie úwiadectwa wzorcowania
 
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("åwiadectwo wzorcowania");
         int col;
-        //umieszczenie daty i numeru ≈õwiadectwa
+        //umieszczenie daty i numeru úwiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
         sheet.setValueAt(new Date( ), 8 , 70);
         sheet.setValueAt(type.num, 22 , 13);
         sheet.setValueAt(type.num, 22 , 70);
         col=12;
         
-        //dane na temat przyrzƒÖdu
+        //dane na temat przyrzπdu
         String name =String.format("%s, model: %s, producent: %s, nr seryjny: %s",
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
        
         name+=".";
-        //dane na temat klient√≥w i wzorcowa≈Ñ
+        //dane na temat klientÛw i wzorcowaÒ
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
         sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("WilgotnoúÊá: "+environment[1], col , 31);
+        sheet.setValueAt("WilgotnoúÊ: "+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
@@ -55,12 +55,9 @@ public class IRGenerate {
         int points=data.size();
         int lenght;
         lenght = points;
-        System.out.println(lenght+" " +data.get(lenght-1).deviceT);
-        System.out.println(type.pyrometr.emissivity);
         if(lenght>3)
         	lenght=3;
         for(int i=0; i<lenght; i++){
-        	System.out.println(i);      	
         	sheet.setValueAt(data.get(i).probeT, 3, line);
         	sheet.setValueAt(data.get(i).deviceT, 12, line);
         	sheet.setValueAt(data.get(i).errorT, 21, line);
@@ -71,7 +68,7 @@ public class IRGenerate {
 
         line=95;
         sheet.setValueAt(type.pyrometr, 4, line);
-        sheet.setValueAt("Pomiar wykonany dla emisyjnoúci rÛwnej: "+ 
+        sheet.setValueAt("EmisyjnoúÊ ürÛd≥a: "+ 
         		type.pyrometr.emissivity +".", 4, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       
@@ -101,7 +98,6 @@ public class IRGenerate {
                 sheet.setValueAt(type.device.producent, 3 , line+11);
                 sheet.setValueAt(type.device.resolutionT, 3 , line+13);
                 for(int j=0; j<10; j++){
-                //    System.out.println(patern.time[i]);
                     sheet.setValueAt(type.pyrometr.reference[referenceNum],
                     		1 , line+17+j);
                     sheet.setValueAt(device.dataT[i][j], 3 , line+17+j);
@@ -128,6 +124,7 @@ public class IRGenerate {
                 }
                 double unc =MetrologyMath.uncertainty(uncT);
                 double round = MetrologyMath.findRound(2*unc, Double.parseDouble(type.device.resolutionT));
+                //poprawiÊ obliczenia
                 double pt=MetrologyMath.round_d(type.pyrometr.reference[referenceNum]+
                 		dataProbe[i].correctionT,round);
                 double div =MetrologyMath.round_d(device.averageT[i],round);
@@ -135,9 +132,6 @@ public class IRGenerate {
                 val.deviceT = MetrologyMath.round(div,round).replace(".", ",");
                 val.errorT = MetrologyMath.round(div-pt,round).replace(".", ",");
                 val.uncertaintyT = MetrologyMath.round(2*unc,round).replace(".", ",");
-                
-                System.out.println(i+"/t"+val.probeT+"/t"+val.deviceT+"/t"+val.errorT
-                		+"/t"+val.uncertaintyT);
                 
                 sheet.setValueAt(val.probeT, 5, line+17);
                 sheet.setValueAt(val.deviceT, 7, line+17);
@@ -176,7 +170,7 @@ public class IRGenerate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odno≈õnie wzorcowania
+    //parowanie informacji odnoúnie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();
