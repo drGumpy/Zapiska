@@ -22,6 +22,7 @@ public class IRGenerate {
     // informacja odnośnie sond i kanałów urządzeń
 
     //wygenerowanie świadectwa wzorcowania
+
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("�wiadectwo wzorcowania");
         int col;
@@ -48,7 +49,9 @@ public class IRGenerate {
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
+
         int line=84;
+
         int points=data.size();
         int lenght;
         lenght = points;
@@ -64,6 +67,7 @@ public class IRGenerate {
         	sheet.setValueAt(data.get(i).uncertaintyT, 30, line);
         	line+=2;
         }
+
 
         line=95;
         sheet.setValueAt(type.pyrometr, 4, line);
@@ -131,6 +135,9 @@ public class IRGenerate {
                 val.deviceT = MetrologyMath.round(div,round).replace(".", ",");
                 val.errorT = MetrologyMath.round(div-pt,round).replace(".", ",");
                 val.uncertaintyT = MetrologyMath.round(2*unc,round).replace(".", ",");
+                
+                System.out.println(i+"/t"+val.probeT+"/t"+val.deviceT+"/t"+val.errorT
+                		+"/t"+val.uncertaintyT);
                 
                 sheet.setValueAt(val.probeT, 5, line+17);
                 sheet.setValueAt(val.deviceT, 7, line+17);
