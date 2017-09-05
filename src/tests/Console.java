@@ -259,13 +259,10 @@ public class Console extends JFrame {
                 try {
                     dataProbe = new DataProbe[point.size()];
                     PaternProbe probe;
-                    probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\13.026.txt"));
+                    probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12030011.txt"));
                     for(int i=0; i<point.size(); i++){
                         int t=Integer.parseInt(point.get(i).temp);
-                        int rh=0;
-                        if(Rh)
-                            rh=Integer.parseInt(point.get(i).hum);
-                        dataProbe[i]=probe.get(t, rh);
+                        dataProbe[i]=probe.get(t, 0);
                     }
                 } catch (IOException e1) {}
                 generation.setEnabled(true);
@@ -475,7 +472,7 @@ public class Console extends JFrame {
         SwingUtilities.invokeLater(new Runnable(){
             Console f = new Console();
             public void run(){
-                f.setTitle("wydawanie œwiadectw dla biedaków");
+                f.setTitle("wydawanie œwiadectw");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setSize(800,600);
                 f.setVisible(true);

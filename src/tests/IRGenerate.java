@@ -19,33 +19,32 @@ public class IRGenerate {
     
     private String[] environment;
     
-    // informacja odnoï¿½nie sond i kanaï¿½ï¿½w urzï¿½dzeï¿½
 
-    //wygenerowanie ï¿½wiadectwa wzorcowania
+    //wygenerowanie œwiadectwa wzorcowania
 
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet("ï¿½wiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet(DisplayedText.calibraionSheet);
         int col;
-        //umieszczenie daty i numeru ï¿½wiadectwa
+        //umieszczenie daty i numeru œwiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
         sheet.setValueAt(new Date( ), 8 , 70);
         sheet.setValueAt(type.num, 22 , 13);
         sheet.setValueAt(type.num, 22 , 70);
         col=12;
         
-        //dane na temat przyrzï¿½du
-        String name =String.format("%s, model: %s, producent: %s, nr seryjny: %s",
+        //dane na temat przyrz¹du
+        String name =String.format(DisplayedText.calibrationDevice,
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
        
         name+=".";
-        //dane na temat klientï¿½w i wzorcowaï¿½
+        //dane na temat klientów i wzorcowañ
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
-        sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("Wilgotnoï¿½ï¿½: "+environment[1], col , 31);
+        sheet.setValueAt(DisplayedText.enviromentT+environment[0], col , 30);
+        sheet.setValueAt(DisplayedText.enviromentRh+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
@@ -68,8 +67,8 @@ public class IRGenerate {
 
         line=95;
         sheet.setValueAt(type.pyrometr, 4, line);
-        sheet.setValueAt("Emisyjnoï¿½ï¿½ ï¿½rï¿½dï¿½a: "+ 
-        		type.pyrometr.emissivity +".", 4, line+1);
+        sheet.setValueAt(String.format(DisplayedText.emissivity,type.pyrometr.emissivity) 
+        		, 4, line+1);
         name = calPath+type.num+"_"+type.declarant.name + ".ods";
         sheet.getSpreadSheet().saveAs(new File(name));       
     }
@@ -80,7 +79,7 @@ public class IRGenerate {
         point = device.averageT.length;
         ArrayList<CertificateValue> cdata = new ArrayList<CertificateValue>();
         try {
-            final Sheet sheet = SpreadSheet.createFromFile(note).getSheet("Wyniki wzorcowania");
+            final Sheet sheet = SpreadSheet.createFromFile(note).getSheet(DisplayedText.noteSheet);
             for(int i=0; i<point; i++){
                 if(device.q[i] || !dataProbe[i].question)
                     continue;
@@ -145,10 +144,10 @@ public class IRGenerate {
         }catch (IOException e){}
     }
     
-    //znalezienie odpowiednich szablonÃ³w
+    //znalezienie odpowiednich szablonów
     private void _findData(){
-    	note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods");
-    	cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_T.ods");
+    	note = new File(DisplayedText.notePath[1]);
+    	cal = new File(DisplayedText.certificatePath[1]);
     }
     //umieszczanie danych na temat wzorcowania
     void putEnvironment(String[] environment){
@@ -168,7 +167,7 @@ public class IRGenerate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odnoï¿½nie wzorcowania
+    //parowanie informacji odnoœnie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();
@@ -184,7 +183,7 @@ public class IRGenerate {
             }
         }
     }  
-    //lista wykonanych Å›wiadectw wzorcowania
+    //lista wykonanych œwiadectw wzorcowania
     ArrayList<String> get_done() {
         return done;
     }

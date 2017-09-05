@@ -74,6 +74,7 @@ public class CertificateData {
     }
     
     private static int _findCode(Certificate cal){
+    	//ujemne liczby!!
 		String calibrationCode= cal.calibrationCode;
 		calibrationCode=calibrationCode.replace('x', '-');
 		calibrationCode=calibrationCode.toUpperCase();
@@ -109,6 +110,7 @@ public class CertificateData {
     	for(int i=0; i<data.size(); i++){
     		boolean q=true;
     		int s= _findCode(data.get(i));
+    		System.out.println(data.get(i).num+": "+s);
     		if(s==calibration) q=false;
     		if(calibration==1 && s==2) q= false;
     		if(q){
@@ -224,7 +226,7 @@ public class CertificateData {
     //otrzymanie danych o wzorcowniu
     static void run() throws IOException{
         _order();
-        _verificate();
+       // _verificate();
         _findClientData();
         _findDeviceData();
         _findProbeData();

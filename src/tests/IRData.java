@@ -7,7 +7,7 @@ class IRData {
 	double[] reference;
 	
 	public String toString(){
-		return "Odleg³oœæ pirometru wzorcowanego od Ÿród³a w czasie wzorcowania wynosi³a : "+distance+ " mm";
+		return String.format(DisplayedText.distanceIR, distance);
 	}
 
 }

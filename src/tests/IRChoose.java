@@ -33,9 +33,9 @@ public class IRChoose extends JDialog{
 			
 	private JComboBox<String>[][] blackBodyChoose;
 	
-	private String path = "C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\Nowy folder\\zapiski\\";
+	private String path = DisplayedText.dataPath;
 	
-	private String[] blackBody= {"123456", "456789"};
+	private String[] blackBody= {"10000236", "10000220"};
 	private static ArrayList<Certificate> data = new ArrayList<Certificate>();
 	
 	private int num;
@@ -250,7 +250,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=4;
 		JLabel emissivityT = new JLabel();
-		emissivityT.setText("emisyjnoï¿½ï¿½");
+		emissivityT.setText("emisyjnoœæ");
 		jp.add(emissivityT, c);
 		emissivity[num] = new JTextField(10);
 		emissivity[num].setEditable(true);
@@ -267,7 +267,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=5;
 		JLabel distanceT = new JLabel();
-		distanceT.setText("odleglegï¿½oï¿½ï¿½");
+		distanceT.setText("odlegleg³oœæ");
 		jp.add(distanceT, c);
 		distance[num] = new JTextField(10);
 		distance[num].setEditable(true);
@@ -324,7 +324,6 @@ public class IRChoose extends JDialog{
 	private void _setData(){
 		int[] points= _findPoints();
 		ArrayList<Integer> toRemove = new ArrayList<Integer>();
-		//next
 		DataProbe[][] blackBodyError= new DataProbe[blackBody.length][points.length];
 		TProbe[] blackBodyData= new TProbe[blackBody.length];
 		for(int i=0; i<blackBody.length; i++){
@@ -335,6 +334,7 @@ public class IRChoose extends JDialog{
 					blackBodyError[i][j]= blackBodyData[i].get(points[i], 0);
 				}
 			} catch (FileNotFoundException e) {
+				System.out.println(blackBody[i]+": adres error");
 			}
 		}
 		for(int i=0; i<data.size(); i++){
@@ -348,13 +348,14 @@ public class IRChoose extends JDialog{
 			data.get(i).pyrometr.distance =_valideDistance(distance[i].getText());
 			data.get(i).pyrometr.reference= new double[data.get(i).point[0].length];
 			for(int j=0; j<data.get(i).point[0].length;j++){
-				
-				if(blackBodyChoose[i][j].getSelectedItem().equals("radiator")){
-					data.get(i).pyrometr.blackBodyError[j]=0,2;
-					continue;
-				}
 				data.get(i).pyrometr.reference[j]=
 						_valideReferenceValue(referenceValue[i][j].getText());
+				
+				if(blackBodyChoose[i][j].getSelectedItem().equals("radiator")){
+					data.get(i).pyrometr.blackBodyError[j]=0.2;
+					continue;
+				}
+				
 				int k=0;
 				for(;blackBodyChoose[i][j].getSelectedItem().equals(blackBody[k]);k++){}
 				data.get(i).pyrometr.blackBodyError[j]= 
@@ -375,7 +376,7 @@ public class IRChoose extends JDialog{
 			c.gridy=i/3;
 			jp.add(_device(i), c);
 		}
-		JButton accept= new JButton("zatwierdÅº");
+		JButton accept= new JButton("zatwierdŸ");
 		c.gridy=4;
 		c.gridx=0;
 		c.gridwidth=3;
@@ -404,9 +405,9 @@ public class IRChoose extends JDialog{
 			JTabbedPane tabbedPane = new JTabbedPane();
 			for(int i=0; i<num; i+=n){
 				if(num>i+n)
-					tabbedPane.addTab(i+1+" ï¿½ "+(i+n), _panel(i, i+n));
+					tabbedPane.addTab(i+1+" ÷ "+(i+n), _panel(i, i+n));
 				else
-					tabbedPane.addTab(i+1+" ï¿½ "+num, _panel(i, num));
+					tabbedPane.addTab(i+1+" ÷ "+num, _panel(i, num));
 			}
 			add(tabbedPane);
 		}else{

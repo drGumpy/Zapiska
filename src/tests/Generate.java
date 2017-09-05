@@ -25,18 +25,10 @@ public class Generate {
     
     // informacja odnośnie sond i kanałów urządzeń
     private String _find(String probeSerial, String chanel) {
-        String val ="";
-        
-        if(chanel.equals(""))
-            return "";
-        else{
-            val="Czujnik temperatury: ";
-            if(!probeSerial.equals("")){
-                val +=probeSerial+" ";
-            }
-            val+= "(nazwa kana�u: "+chanel+")";
+        String val ="";  
+        if(!chanel.equals("")){
+            val = String.format(DisplayedText.channel, probeSerial, chanel);
         }
-        
         return val;
     }
     
@@ -44,20 +36,20 @@ public class Generate {
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         boolean sw2 = false;
         File file =cal;
-        //typ świadectwa
+        //typ Ĺ›wiadectwa
         if(!Rh){
             if(type.calibrationCode.equals("SW2")){
                 sw2=true;
-                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Tx2.ods");
+                file= new File(DisplayedText.certificatePath[2]);
                 }
-            if(type.declarant.name.equals(Special.s) && type.device.model.equals("810-210")){
+            if(type.declarant.name.equals(Special.s) && type.device.model.equals("810-210")){ //dane wrażliwe
                 sw2=true;
-                file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Tx2.ods");
+                file= new File(DisplayedText.certificatePath[2]);
             }
         }
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("�wiadectwo wzorcowania");
+        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(DisplayedText.calibraionSheet);
         int col;
-        //umieszczenie daty i numeru świadectwa
+        //umieszczenie daty i numeru Ĺ›wiadectwa
         if(Rh){
             sheet.setValueAt(new Date( ), 9 , 13);
             sheet.setValueAt(new Date( ), 9 , 70);
@@ -71,27 +63,27 @@ public class Generate {
             sheet.setValueAt(type.num, 22 , 70);
             col=12;
         }
-        //dane na temat przyrządu
-        String name =String.format("%s, model: %s, producent: %s, nr seryjny: %s",
+        //dane na temat przyrzÄ…du
+        String name =String.format(DisplayedText.calibrationDevice,
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
         if(!type.probeSerial[0].equals("")){
             if(type.probe.type.equals(""))
-                name+=String.format(", z %s, nr seryjny: %s.",
+                name+=String.format(DisplayedText.calibrationProbe1,
                         type.probe.model, type.probe_ser);
             else
-                name+=String.format(", z %s model %s, producent: %s, nr seryjny: %s.",
+                name+=String.format(DisplayedText.calibrationProbe2,
                     type.probe.type,type.probe.model , type.probe.producent, type.probe_ser);
             }
         else
             name+=".";
-        //dane na temat klientów i wzorcowań
+        //dane na temat klientĂłw i wzorcowaĹ„
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
         sheet.setValueAt(type.user.name, col , 23);
         sheet.setValueAt(type.user, col , 24);
-        sheet.setValueAt("Temperatura: "+environment[0], col , 30);
-        sheet.setValueAt("Wilgotno��: "+environment[1], col , 31);
+        sheet.setValueAt(DisplayedText.enviromentT+environment[0], col , 30);
+        sheet.setValueAt(DisplayedText.enviromentRh+environment[1], col , 31);
         sheet.setValueAt(type.calibrationDate, col , 33);
         
         //wprwadzanie danych liczbowych z wzorcowania
@@ -174,7 +166,7 @@ public class Generate {
         point = device.averageT.length;
         ArrayList<CertificateValue> cdata = new ArrayList<CertificateValue>();
         try {
-            final Sheet sheet = SpreadSheet.createFromFile(note).getSheet("Wyniki wzorcowania");
+            final Sheet sheet = SpreadSheet.createFromFile(note).getSheet(DisplayedText.noteSheet);
             for(int i=0; i<point; i++){
                 if(device.q[i] || !dataProbe[i].question)
                     continue;
@@ -306,21 +298,21 @@ public class Generate {
             _generateCal(cdata,type);
             done.add(type.num);
         } catch (IOException e) {
-        	System.out.println("b��d przy generowaniu");
+        	System.out.println("błąd przy generowaniu");
         	e.printStackTrace();
     	}
     }
     
-    //znalezienie odpowiednich szablonów
+    //znalezienie odpowiednich szablonĂłw
     private void _findData(){
         if(patern.averageRh!=null){
             Rh = true;
-            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_Rh.ods");
-            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Rh.ods");
+            note = new File(DisplayedText.notePath[3]);
+        	cal = new File(DisplayedText.certificatePath[3]);
         }else{
             Rh = false;
-            note = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods");
-            cal = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_T.ods");
+            note = new File(DisplayedText.notePath[1]);
+        	cal = new File(DisplayedText.certificatePath[1]);
         }
     }
     //umieszczanie danych o wzorcowaniu
@@ -349,7 +341,7 @@ public class Generate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odnośnie wzorcowania
+    //parowanie informacji odnoĹ›nie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();
@@ -365,7 +357,7 @@ public class Generate {
             }
         }
     }  
-    //lista wykonanych świadectw wzorcowania
+    //lista wykonanych Ĺ›wiadectw wzorcowania
     ArrayList<String> getDone() {
         return done;
     }
