@@ -43,7 +43,7 @@ public class Console extends JFrame {
     private static boolean Rh = false;
     private static int points=3;
     
-    //pozycja arkusza, zapisu œwiadectw i zapisek wzorcowania
+    //pozycja arkusza, zapisu Å›wiadectw i zapisek wzorcowania
     private static JTextField
      sheet = new JTextField(50),
      certificate = new JTextField(50),
@@ -53,18 +53,18 @@ public class Console extends JFrame {
     
     private static JComboBox<Integer> pointsBox = new JComboBox<Integer>();
     
-    //informacje odnoœnie warunków œrodowiskowych
+    //informacje odnoÅ›nie warunkÃ³w Å›rodowiskowych
     private static JTextField[] environment = new JTextField[4];   
     private static double enviromentCondition[] = {22.0, 22.0, 45.0, 45.0};
     
-    //przypisanie warunków œrodowiskowych
+    //przypisanie warunkÃ³w Å›rodowiskowych
     
     private static JPanel _environ(){
         JPanel jp = new JPanel();
         jp.setPreferredSize(new Dimension(400, 80));
         jp.setMaximumSize(jp.getPreferredSize()); 
         jp.setMinimumSize(jp.getPreferredSize());
-        jp.setBorder(new TitledBorder("Warunki œrodowiskowe"));
+        jp.setBorder(new TitledBorder("Warunki ï¿½rodowiskowe"));
         String[] title = {"t min    ","t max   ","Rh min ","Rh max"};
         for(int i=0; i<4;i++){
             environment[i] = new JTextField(10);
@@ -153,7 +153,7 @@ public class Console extends JFrame {
     }
     
     private static JPanel _choosePath(String name, String path, JTextField field){
-    	 JButton b= new JButton("zmieñ");
+    	 JButton b= new JButton("zmieÅ„");
          JPanel jp = new JPanel();
          jp.setPreferredSize(new Dimension(650, 50));
          jp.setMinimumSize(jp.getPreferredSize());
@@ -181,12 +181,12 @@ public class Console extends JFrame {
     private static JPanel _calibrationType() {
         ButtonGroup bg = new ButtonGroup();
         JPanel jp = new JPanel();
-        String title = "iloœæ punktów pomiarowych i rodzaj wzorcowania";
+        String title = "iloÅ›Ä‡ punktÃ³w pomiarowych i rodzaj wzorcowania";
         title = title.substring(title.lastIndexOf('.') + 1);
         jp.setBorder(new TitledBorder(title));
         
         t  = new JRadioButton("temperatura");
-        rh = new JRadioButton("temperatura i wilgotnoœæ");
+        rh = new JRadioButton("temperatura i wilgotnoÅ›Ä‡");
  
         for(int i = 1; i < 7; i++)
                pointsBox.addItem(i);
@@ -229,11 +229,11 @@ public class Console extends JFrame {
 		super.dispose();
 	}
     
-    //wzorcowanie pirometrów
+    //wzorcowanie pirometrÃ³w
     private JPanel _pyrometers(){
     	JPanel jp = new JPanel();
     	JButton calibrationData = new JButton("wybierz zlecenia");
-    	JButton generation= new JButton("generuj œwiadetwa");
+    	JButton generation= new JButton("generuj Å›wiadetwa");
     	
     	calibrationData.setMinimumSize(new Dimension(200, 23));
     	generation.setMinimumSize(new Dimension(200, 23));
@@ -301,9 +301,9 @@ public class Console extends JFrame {
     private JPanel _climateChamber(){
     	JPanel jp = new JPanel();
     	jp.setLayout(new GridBagLayout());
-        JButton dattaLogger= new JButton("dane z rejestratorów");
+        JButton dattaLogger= new JButton("dane z rejestratorÃ³w");
         JButton clientData= new JButton("wybierz zlecenia");
-        JButton generation= new JButton("generuj œwiadetwa");
+        JButton generation= new JButton("generuj Å›wiadetwa");
         
         dattaLogger.setMinimumSize(new Dimension(200, 23));
         clientData.setMinimumSize(new Dimension(200, 23));
@@ -353,7 +353,7 @@ public class Console extends JFrame {
                     devices=GetData.findData(points);
                     patern=GetData.getPatern();
                     point=GetData.getPoint();
-                } catch (IOException e1) {System.out.println("b³¹d pobierania danych");}
+                } catch (IOException e1) {System.out.println("bÅ‚Ä…d pobierania danych");}
                 
                 try {
                     dataProbe = new DataProbe[point.size()];
@@ -369,7 +369,7 @@ public class Console extends JFrame {
                             rh=Integer.parseInt(point.get(i).hum);
                         dataProbe[i]=probe.get(t, rh);
                     }
-                } catch (IOException e1) {System.out.println("b³¹d wzorca");}
+                } catch (IOException e1) {System.out.println("bÅ‚Ä…d wzorca");}
                 
                 Chamber cham= new Chamber();
                 cham.start(Rh);
@@ -380,7 +380,7 @@ public class Console extends JFrame {
                 System.out.println("czas: " +(endTime - startTime)/1000.0 + " s");
             }
         });
-        //wygenerowanie œwiadectw wzorcowania
+        //wygenerowanie Å›wiadectw wzorcowania
         generation.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 Generate make = new Generate();
@@ -447,13 +447,11 @@ public class Console extends JFrame {
     	
     	c.gridy=2;
     	add(_choosePath("Folder zapisu zapisek z wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\Zapiski\\",
-    			notes), c);
+    			DisplayedText.notePath[0], notes), c);
     	
     	c.gridy=3;
-    	add(_choosePath("Folder zapisu œwiadectw wzorcowania",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowañ\\œwiadectwa wzorcowania\\", 
-    			certificate), c);
+    	add(_choosePath("Folder zapisu Å›wiadectw wzorcowania",
+    			DisplayedText.certificatePath[0], certificate), c);
     	
     	JTabbedPane tabbedPane = new JTabbedPane();
     	tabbedPane.addTab("komora klimatyczna", _climateChamber());
@@ -472,7 +470,7 @@ public class Console extends JFrame {
         SwingUtilities.invokeLater(new Runnable(){
             Console f = new Console();
             public void run(){
-                f.setTitle("wydawanie œwiadectw");
+                f.setTitle("wydawanie Å›wiadectw");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setSize(800,600);
                 f.setVisible(true);

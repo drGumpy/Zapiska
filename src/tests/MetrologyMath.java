@@ -8,7 +8,7 @@ import java.util.Date;
 //metody stowane w programie
 public class MetrologyMath {
     
-	//wyliczanie odchylenia standardowego z tablicy
+	//wyliczanie odchylenia standardowego
     static double standardDeviation(double[] data){
         double average=0;
         int elements=data.length;
@@ -92,7 +92,7 @@ public class MetrologyMath {
         }
     }
     
-    //zaokrąglanie do n (places) miejsc po przecinku
+    //zaokrąglanie do n miejsc po przecinku
     public static double round_(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
  
@@ -152,7 +152,6 @@ public class MetrologyMath {
     
     //sprawdzanie czy format danych o warunkach środowiskowych jest poprawny
     static boolean validate(String num){
-        //System.out.println("numer "+num);
         try {
               double d =Double.parseDouble(num);
               if(d>100 || d <0)

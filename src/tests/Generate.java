@@ -36,7 +36,7 @@ public class Generate {
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         boolean sw2 = false;
         File file =cal;
-        //typ Ĺ›wiadectwa
+        //typ świadectwa
         if(!Rh){
             if(type.calibrationCode.equals("SW2")){
                 sw2=true;
@@ -49,7 +49,7 @@ public class Generate {
         }
         final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(DisplayedText.calibraionSheet);
         int col;
-        //umieszczenie daty i numeru Ĺ›wiadectwa
+        //umieszczenie daty i numeru świadectwa
         if(Rh){
             sheet.setValueAt(new Date( ), 9 , 13);
             sheet.setValueAt(new Date( ), 9 , 70);
@@ -63,7 +63,7 @@ public class Generate {
             sheet.setValueAt(type.num, 22 , 70);
             col=12;
         }
-        //dane na temat przyrzÄ…du
+        //dane na temat przyrządu
         String name =String.format(DisplayedText.calibrationDevice,
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
         if(!type.probeSerial[0].equals("")){
@@ -76,7 +76,7 @@ public class Generate {
             }
         else
             name+=".";
-        //dane na temat klientĂłw i wzorcowaĹ„
+        //dane na temat klientów i wzorcowań
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
@@ -341,7 +341,7 @@ public class Generate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odnoĹ›nie wzorcowania
+    //parowanie informacji odnośnie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();
@@ -357,7 +357,7 @@ public class Generate {
             }
         }
     }  
-    //lista wykonanych Ĺ›wiadectw wzorcowania
+    //lista wykonanych świadectw wzorcowania
     ArrayList<String> getDone() {
         return done;
     }

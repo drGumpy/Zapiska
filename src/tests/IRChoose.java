@@ -250,7 +250,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=4;
 		JLabel emissivityT = new JLabel();
-		emissivityT.setText("emisyjnoœæ");
+		emissivityT.setText("emisyjnoÅ›Ä‡");
 		jp.add(emissivityT, c);
 		emissivity[num] = new JTextField(10);
 		emissivity[num].setEditable(true);
@@ -267,7 +267,7 @@ public class IRChoose extends JDialog{
 		c.gridx=0;
 		c.gridy=5;
 		JLabel distanceT = new JLabel();
-		distanceT.setText("odlegleg³oœæ");
+		distanceT.setText("odleglegÅ‚oÅ›Ä‡");
 		jp.add(distanceT, c);
 		distance[num] = new JTextField(10);
 		distance[num].setEditable(true);
@@ -376,7 +376,7 @@ public class IRChoose extends JDialog{
 			c.gridy=i/3;
 			jp.add(_device(i), c);
 		}
-		JButton accept= new JButton("zatwierdŸ");
+		JButton accept= new JButton("zatwierdÅº");
 		c.gridy=4;
 		c.gridx=0;
 		c.gridwidth=3;
@@ -405,9 +405,9 @@ public class IRChoose extends JDialog{
 			JTabbedPane tabbedPane = new JTabbedPane();
 			for(int i=0; i<num; i+=n){
 				if(num>i+n)
-					tabbedPane.addTab(i+1+" ÷ "+(i+n), _panel(i, i+n));
+					tabbedPane.addTab(i+1+" ï¿½ "+(i+n), _panel(i, i+n));
 				else
-					tabbedPane.addTab(i+1+" ÷ "+num, _panel(i, num));
+					tabbedPane.addTab(i+1+" ï¿½ "+num, _panel(i, num));
 			}
 			add(tabbedPane);
 		}else{

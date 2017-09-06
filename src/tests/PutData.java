@@ -19,7 +19,7 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
 public class PutData {
         
     //parametry wzorcowania i plik docelowy
-    static boolean Rh = true;                            //wzorcowanie wilgotności?
+    static boolean Rh = true;                            //wzorcowanie wilgotności
     static int points = 5;                                 //liczba punktów wzorcowania
     static File file= new File("C:/Users/Laboratorium/Desktop/Laboratorium.ods");
     
@@ -300,7 +300,7 @@ public class PutData {
                                 else
                                     sheet.setValueAt("0", col+2, line+1);
                             }
-                            //czy koniec pliku?
+                            //czy koniec pliku
                             if(sc.hasNextLine())
                             d= logger.get(i).divide(sc.nextLine());
                             else{

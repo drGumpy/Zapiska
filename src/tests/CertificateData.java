@@ -20,7 +20,7 @@ public class CertificateData {
     //Spis danych o klientach
     private static HashMap<String, Client> clientsData =new HashMap<String, Client>();
     
-    //Spis sond stosowanych przy wzrcowanych urządzeniach - brak danych przyszłość
+    //Spis sond stosowanych przy wzrcowanych urządzeniach
     private static HashMap<String, Probe> probesData =new HashMap<String, Probe>();
     
     //Spis typów wzorcowanych urządzeń
@@ -141,7 +141,7 @@ public class CertificateData {
     
     //wyszukiwanie danych o wzorcowanych urządzeniach
     private static void _findDeviceData() throws IOException{
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Urz�dzenia");
+        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet("Urządzenia");
         int i=0;
         String model;
         while(sheet.getValueAt(0,i)!=""){

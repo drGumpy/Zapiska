@@ -20,24 +20,24 @@ public class IRGenerate {
     private String[] environment;
     
 
-    //wygenerowanie œwiadectwa wzorcowania
+    //wygenerowanie Å›wiadectwa wzorcowania
 
     private void _generateCal(ArrayList<CertificateValue> data, Certificate type) throws IOException{
         final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet(DisplayedText.calibraionSheet);
         int col;
-        //umieszczenie daty i numeru œwiadectwa
+        //umieszczenie daty i numeru Å›wiadectwa
         sheet.setValueAt(new Date( ), 8 , 13);
         sheet.setValueAt(new Date( ), 8 , 70);
         sheet.setValueAt(type.num, 22 , 13);
         sheet.setValueAt(type.num, 22 , 70);
         col=12;
         
-        //dane na temat przyrz¹du
+        //dane na temat przyrzÄ…du
         String name =String.format(DisplayedText.calibrationDevice,
                 type.device.type, type.device.model, type.device.producent,type.deviceSerial);
        
         name+=".";
-        //dane na temat klientów i wzorcowañ
+        //dane na temat klientÃ³w i wzorcowaÅ„
         sheet.setValueAt(name, col , 16);
         sheet.setValueAt(type.declarant.name, col , 20);
         sheet.setValueAt(type.declarant, col , 21);
@@ -144,7 +144,7 @@ public class IRGenerate {
         }catch (IOException e){}
     }
     
-    //znalezienie odpowiednich szablonów
+    //znalezienie odpowiednich szablonÃ³w
     private void _findData(){
     	note = new File(DisplayedText.notePath[1]);
     	cal = new File(DisplayedText.certificatePath[1]);
@@ -167,7 +167,7 @@ public class IRGenerate {
         this.dataProbe=dataProbe;
     }
     
-    //parowanie informacji odnoœnie wzorcowania
+    //parowanie informacji odnoÅ›nie wzorcowania
     void run(ArrayList <Certificate> data){
         int n=data.size();
         _findData();
@@ -183,7 +183,7 @@ public class IRGenerate {
             }
         }
     }  
-    //lista wykonanych œwiadectw wzorcowania
+    //lista wykonanych ï¿½wiadectw wzorcowania
     ArrayList<String> get_done() {
         return done;
     }

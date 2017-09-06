@@ -28,9 +28,9 @@ class Types{
      this.probe=probe;
  }
  // wprowadzenie danych na temat wzorcowania i arkusza
- void dataset(boolean a){
-     this.RH=a;
-     if(a){ //arkusz "Zapiska Temp & RH"
+ void dataset(boolean Rh){
+     this.RH=Rh;
+     if(RH){ //arkusz "Zapiska Temp & RH"
          datacol=34;
          timecol=3;
          gaps= 45;
