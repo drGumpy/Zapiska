@@ -231,7 +231,7 @@ public class PutData {
         for (int i=0; i< points; i++){
             Data pr = new Data(Rh);
             pr.time = MetrologyMath.parseTime(sheet.getValueAt(typ.timecol,6+typ.gaps*i).toString());
-            pr.date = sheet.getValueAt(typ.datacol,6+typ.gaps*i).toString();
+            pr.date = MetrologyMath.parseDate(sheet.getValueAt(typ.datacol,6+typ.gaps*i).toString());
             pr.num=i;
             if(Rh){
                 pr.temp=sheet.getValueAt(0,6+typ.gaps*i).toString();

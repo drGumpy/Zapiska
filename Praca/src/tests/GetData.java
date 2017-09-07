@@ -17,8 +17,6 @@ public class GetData {
     
     static private Types typ = new Types();
     
-    static private boolean IR= false;
-    
     static void setData(boolean Rh){
         typ.dataset(Rh);    
     }
@@ -26,11 +24,7 @@ public class GetData {
     static void setFile(File  add_file){
         typ.Filesset(add_file);
     }
-    
-    static void IR(){
-        IR=true;;   
-    }
-    
+       
     // pobranie danych wzorca
     private static void _findProbeData(int points) throws IOException{
         final Sheet sheet = SpreadSheet.createFromFile(typ.file).getSheet(typ.Sheetname);

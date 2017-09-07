@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Locale;
 
 //metody stowane w programie
 public class MetrologyMath {
@@ -136,11 +137,19 @@ public class MetrologyMath {
         Date date;
         try {
             date = new SimpleDateFormat("'PT'HH'H'mm'M's'S'").parse(data);
-            String newString = new SimpleDateFormat("HH:mm").format(date); // 9:00
-            return newString;
+            return new SimpleDateFormat("HH:mm").format(date); // 9:00
         } catch (ParseException e) {
             return data;
         }
+    }
+    static String parseDate(String data){
+    	Date date;
+    	try {
+			date = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy", Locale.US).parse(data);
+			return new SimpleDateFormat("dd.MM.yyyy").format(date);
+		} catch (ParseException e) {
+			return data;
+		}
     }
     
     //podanie dodanie do czasu d minut
@@ -160,5 +169,17 @@ public class MetrologyMath {
             } catch (NumberFormatException e) {
               return false;
             }
+    }
+    
+    static double getValue(String num){
+    	double d;
+    	try {
+            d =Double.parseDouble(num);
+            if(d>100 || d <0)
+                return 0;
+            return d;
+          } catch (NumberFormatException e) {
+            return 0;
+          }
     }
 }
