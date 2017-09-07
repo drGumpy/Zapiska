@@ -64,8 +64,12 @@ public class Console extends JFrame {
         jp.setPreferredSize(new Dimension(400, 80));
         jp.setMaximumSize(jp.getPreferredSize()); 
         jp.setMinimumSize(jp.getPreferredSize());
+        jp.setLayout(new GridBagLayout());
+    	GridBagConstraints c = new GridBagConstraints();
+    	c.fill= GridBagConstraints.HORIZONTAL;
         jp.setBorder(new TitledBorder("Warunki środowiskowe"));
-        String[] title = {"t min    ","t max   ","Rh min ","Rh max"};
+        String[] title = {"t min","t max","Rh min","Rh max"};
+        c.ipadx=10;
         for(int i=0; i<4;i++){
             environment[i] = new JTextField(10);
             environment[i].setName(title[i]);
@@ -73,81 +77,91 @@ public class Console extends JFrame {
                 environment[i].setText("22.000");
             else
                 environment[i].setText("45.000");
-            jp.add(environment[i]);
+            c.gridx = (i*2)%4;
+            c.gridy = i/2;
+            jp.add(environment[i], c);
+            
             JLabel label= new JLabel();
             label.setText(title[i]);
-            jp.add(label);
+            c.gridx++;
+            jp.add(label, c);
         }
 
         
         environment[0].addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-                String data = environment[0].getText().replace(",", ".");
-                if(!MetrologyMath.validate(data))
-                    environment[0].setText("22.000");
-                else{
-                    String data2 = environment[1].getText();
-                    if(Double.parseDouble(data)>Double.parseDouble(data2))
-                        environment[0].setText("22.000");
-                    else{
-                        enviromentCondition[0]= Double.parseDouble(data);
-                        environment[0].setText(data);
-                    }
-                }
+        		double d1 = MetrologyMath.getValue(environment[0].getText().replace(",", ".")),
+        				d2= MetrologyMath.getValue(environment[1].getText().replace(",", "."));
+        		if(d1!=0 && d1<d2){
+        			 environment[0].setText(String.format("%.3f", d1));
+        			 environment[1].setText(String.format("%.3f", d2));
+        		}else{
+        			if(d2<22 || d2!=0){
+        				environment[0].setText(String.format("%.3f", d2));
+           			 	environment[1].setText(String.format("%.3f", d2));
+        			}else{
+        				environment[0].setText("22.000");
+           			 	environment[1].setText("22.000");
+        			}
+        		}
         	}
         });
         
         environment[1].addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                String data = environment[1].getText().replace(",", ".");
-                if(!MetrologyMath.validate(data))
-                    environment[1].setText("22.000");
-                else{
-                    String data2 = environment[0].getText();
-                    if(Double.parseDouble(data)<Double.parseDouble(data2))
-                        environment[1].setText("22.000");
-                    else{
-                        enviromentCondition[1]= Double.parseDouble(data);
-                        environment[1].setText(data);
-                    }
-                }
-            }
-            
+            	double d1 = MetrologyMath.getValue(environment[0].getText().replace(",", ".")),
+        				d2= MetrologyMath.getValue(environment[1].getText().replace(",", "."));
+        		if(d1!=0 && d1<d2){
+        			 environment[0].setText(String.format("%.3f", d1));
+        			 environment[1].setText(String.format("%.3f", d2));
+        		}else{
+        			if(d1!=0){
+        				environment[0].setText(String.format("%.3f", d1));
+           			 	environment[1].setText(String.format("%.3f", d1));
+        			}else{
+        				environment[0].setText("22.000");
+           			 	environment[1].setText("22.000");
+        			}
+        		}
+            }            
         });
         
         environment[2].addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-                String data = environment[2].getText().replace(",", ".");
-                if(!MetrologyMath.validate(data))
-                    environment[2].setText("45.000");
-                else{
-                    String data2 = environment[3].getText();
-                    if(Double.parseDouble(data)>Double.parseDouble(data2))
-                        environment[2].setText("45.000");
-                    else{
-                        enviromentCondition[2]= Double.parseDouble(data);
-                        environment[2].setText(data);
-                    }
-                }
-            }
-            
+        	public void actionPerformed(ActionEvent e) {
+        		double d1 = MetrologyMath.getValue(environment[2].getText().replace(",", ".")),
+        				d2= MetrologyMath.getValue(environment[3].getText().replace(",", "."));
+        		if(d1!=0 && d1<d2){
+        			 environment[2].setText(String.format("%.3f", d1));
+        			 environment[3].setText(String.format("%.3f", d2));
+        		}else{
+        			if(d2<45 || d2!=0){
+        				environment[2].setText(String.format("%.3f", d2));
+           			 	environment[3].setText(String.format("%.3f", d2));
+        			}else{
+        				environment[2].setText("22.000");
+           			 	environment[3].setText("22.000");
+        			}
+        		}
+        	}
         });
         
         environment[3].addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-                String data = environment[3].getText().replace(",", ".");
-                if(!MetrologyMath.validate(data))
-                    environment[3].setText("45.000");
-                else{
-                    String data2 = environment[2].getText();
-                    if(Double.parseDouble(data)<Double.parseDouble(data2))
-                        environment[3].setText("45.000");
-                    else{
-                        enviromentCondition[3]= Double.parseDouble(data);
-                        environment[3].setText(data);
-                    }
-                }
-            }            
+        	public void actionPerformed(ActionEvent e) {
+        		double d1 = MetrologyMath.getValue(environment[2].getText().replace(",", ".")),
+        				d2= MetrologyMath.getValue(environment[3].getText().replace(",", "."));
+        		if(d1!=0 && d1<d2){
+        			 environment[2].setText(String.format("%.3f", d1));
+        			 environment[3].setText(String.format("%.3f", d2));
+        		}else{
+        			if(d1!=0){
+        				environment[2].setText(String.format("%.3f", d2));
+           			 	environment[3].setText(String.format("%.3f", d2));
+        			}else{
+        				environment[2].setText("22.000");
+           			 	environment[3].setText("22.000");
+        			}
+        		}
+        	}        
         });
         return jp;
     }
