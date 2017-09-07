@@ -74,30 +74,26 @@ public class CertificateData {
     }
     
     private static int _findCode(Certificate cal){
-    	//ujemne liczby!!
-		String calibrationCode= cal.calibrationCode;
-		calibrationCode=calibrationCode.replace('x', '-');
-		calibrationCode=calibrationCode.toUpperCase();
+		String calibrationCode= cal.calibrationCode.toUpperCase();
+		String points="";
+		try{
+			points = name.substring(name.indexOf("(")+1,name.indexOf(")"));
+			calibrationCode = calibrationCode.replace("-N("+points+")", "");
+		}catch(StringIndexOutOfBoundsException e){}
 		calibrationCode=calibrationCode.replaceAll("SW", "");
-		String[] data = calibrationCode.split("-");
+		String[] data = calibrationCode.split("x");
 		int s;
 		try{
 			s=Integer.parseInt(data[0]);
-			if(data.length>1){
+			cal.point=StandardPoint.point(points,calibration);
+			if(s==2)
+				cal.channelNumber=2;
+			else if(data.length==2){
 				int channel = _check(data[1]);
-				if(channel ==0){
-					data[1]=data[1].replaceAll("N\\(|\\)", "");
-					cal.point=StandardPoint.point(data[1], calibration);
-					if(data.length==3)
-						cal.channelNumber=Integer.parseInt(data[2]);
-					else
-						cal.channelNumber=1;
-				}else{
-					cal.point=StandardPoint.point(calibration);
+				else
 					cal.channelNumber=channel;
-				}
+				
 			}else{
-				cal.point=StandardPoint.point(calibration);
 				cal.channelNumber=1;
 			}
 		}catch(NumberFormatException e){

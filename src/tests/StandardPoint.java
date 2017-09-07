@@ -18,6 +18,8 @@ public class StandardPoint {
 	}
 	
 	static int[][] point(String data, int code){
+		if(data="")
+			return point(code);
 		data= data.replaceAll(" ", "");
 		String[] points = data.split(",");
 		int[][] point;
