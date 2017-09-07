@@ -10,15 +10,31 @@ public class StandardPoint {
 	static int[] humPoint(String data){
 		int[] point = new int[2];
 		data = data.replaceAll("\\[|\\]", "");
-		System.out.println(data);
 		String[] d = data.split(";");
 		point[0]= toInt(d[0]);
 		point[1]= toInt(d[1]);
 		return point;
 	}
 	
+	static int[][] sort(int[][] array){
+		for(int i=0; i<array[0].length; i++){
+			for(int j=array[0].length-1; j>i; j--){
+				if(array[0][j]<array[0][j-1] && 
+						(array[0][j]==array[0][j-1] || array[1][j]<array[1][j-1])){
+					int t = array[0][j],
+							rh = array[1][j];
+					array[0][j] = array[0][j-1];
+					array[1][j] = array[1][j-1];
+					array[0][j-1] = t;
+					array[1][j-1] = rh;
+				}
+			}
+		}
+		return array;
+	}
+	
 	static int[][] point(String data, int code){
-		if(data="")
+		if(data.equals(""))
 			return point(code);
 		data= data.replaceAll(" ", "");
 		String[] points = data.split(",");
@@ -42,6 +58,7 @@ public class StandardPoint {
 			break;
 		default: return null;
 		}
+		point = sort(point);
 		return point;	
 	}
 

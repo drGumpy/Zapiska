@@ -77,7 +77,8 @@ public class CertificateData {
 		String calibrationCode= cal.calibrationCode.toUpperCase();
 		String points="";
 		try{
-			points = name.substring(name.indexOf("(")+1,name.indexOf(")"));
+			points = calibrationCode.substring
+					(calibrationCode.indexOf("(")+1,calibrationCode.indexOf(")"));
 			calibrationCode = calibrationCode.replace("-N("+points+")", "");
 		}catch(StringIndexOutOfBoundsException e){}
 		calibrationCode=calibrationCode.replaceAll("SW", "");
@@ -90,8 +91,7 @@ public class CertificateData {
 				cal.channelNumber=2;
 			else if(data.length==2){
 				int channel = _check(data[1]);
-				else
-					cal.channelNumber=channel;
+				cal.channelNumber=channel;
 				
 			}else{
 				cal.channelNumber=1;
@@ -106,7 +106,6 @@ public class CertificateData {
     	for(int i=0; i<data.size(); i++){
     		boolean q=true;
     		int s= _findCode(data.get(i));
-    		System.out.println(data.get(i).num+": "+s);
     		if(s==calibration) q=false;
     		if(calibration==1 && s==2) q= false;
     		if(q){
@@ -222,7 +221,7 @@ public class CertificateData {
     //otrzymanie danych o wzorcowniu
     static void run() throws IOException{
         _order();
-       // _verificate();
+        _verificate();
         _findClientData();
         _findDeviceData();
         _findProbeData();

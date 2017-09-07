@@ -64,7 +64,7 @@ public class Console extends JFrame {
         jp.setPreferredSize(new Dimension(400, 80));
         jp.setMaximumSize(jp.getPreferredSize()); 
         jp.setMinimumSize(jp.getPreferredSize());
-        jp.setBorder(new TitledBorder("Warunki �rodowiskowe"));
+        jp.setBorder(new TitledBorder("Warunki środowiskowe"));
         String[] title = {"t min    ","t max   ","Rh min ","Rh max"};
         for(int i=0; i<4;i++){
             environment[i] = new JTextField(10);

@@ -10,7 +10,7 @@ class CEM extends Data{
     }
  
     public Data divide(String line){
-        String[] Data = line.split("\t");
+        String[] Data = line.split(",");
         String[] when =Data[5].split("/");
         Data d= new Data(RH);
         d.num =Integer.parseInt(Data[0]);

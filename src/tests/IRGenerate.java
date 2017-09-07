@@ -26,8 +26,8 @@ public class IRGenerate {
         final Sheet sheet = SpreadSheet.createFromFile(cal).getSheet(DisplayedText.calibraionSheet);
         int col;
         //umieszczenie daty i numeru świadectwa
-        sheet.setValueAt(new Date( ), 8 , 13);
-        sheet.setValueAt(new Date( ), 8 , 70);
+        sheet.setValueAt(new Date(), 8 , 13);
+        sheet.setValueAt(new Date(), 8 , 70);
         sheet.setValueAt(type.num, 22 , 13);
         sheet.setValueAt(type.num, 22 , 70);
         col=12;
@@ -80,9 +80,12 @@ public class IRGenerate {
         ArrayList<CertificateValue> cdata = new ArrayList<CertificateValue>();
         try {
             final Sheet sheet = SpreadSheet.createFromFile(note).getSheet(DisplayedText.noteSheet);
+            int count=0;
             for(int i=0; i<point; i++){
                 if(device.q[i] || !dataProbe[i].question)
                     continue;
+                if(dataProbe[i].valueT!=type.point[0][count])
+                	continue;
                 CertificateValue val= new CertificateValue();
                 int line = i*32+3;
                 sheet.setValueAt(type.num, 3 , line);
@@ -96,7 +99,7 @@ public class IRGenerate {
                 sheet.setValueAt(type.device.producent, 3 , line+11);
                 sheet.setValueAt(type.device.resolutionT, 3 , line+13);
                 for(int j=0; j<10; j++){
-                    sheet.setValueAt(type.pyrometr.reference[i],
+                    sheet.setValueAt(type.pyrometr.reference[count],
                     		1 , line+17+j);
                     sheet.setValueAt(device.dataT[i][j], 3 , line+17+j);
                 }
@@ -108,21 +111,21 @@ public class IRGenerate {
                 uncT[3]=0.1/Math.sqrt(3);
                 uncT[4]=dataProbe[i].uncertaintyT/2;
                 uncT[5]=dataProbe[i].driftT/Math.sqrt(3);
-                uncT[6]=type.pyrometr.blackBodyError[i]/2;
+                uncT[6]=type.pyrometr.blackBodyError[count]/2;
  
                 sheet.setValueAt(device.averageT[i], 7 , line+5);
-                sheet.setValueAt(type.pyrometr.reference[i], 7 , line+7);
+                sheet.setValueAt(type.pyrometr.reference[count], 7 , line+7);
                 sheet.setValueAt(dataProbe[i].correctionT, 7 , line+9);
                 sheet.setValueAt(type.device.resolutionT, 9 , line+6);
                 sheet.setValueAt(dataProbe[i].uncertaintyT, 9, line+9);
                 sheet.setValueAt(dataProbe[i].driftT, 9, line+10);
-                sheet.setValueAt(type.pyrometr.blackBodyError[i], 9, line+11);
+                sheet.setValueAt(type.pyrometr.blackBodyError[count], 9, line+11);
                 for(int j=0; j<uncT.length; j++){
                     sheet.setValueAt(uncT[j], 13, line+5+j);
                 }
                 double unc =MetrologyMath.uncertainty(uncT);
                 double round = MetrologyMath.findRound(2*unc, Double.parseDouble(type.device.resolutionT));
-                double pt=MetrologyMath.round_d(type.pyrometr.reference[i]+
+                double pt=MetrologyMath.round_d(type.pyrometr.reference[count]+
                 		dataProbe[i].correctionT,round);
                 double div =MetrologyMath.round_d(device.averageT[i],round);
                 val.probeT= MetrologyMath.round(pt,round).replace(".", ",");
@@ -134,7 +137,7 @@ public class IRGenerate {
                 sheet.setValueAt(val.deviceT, 7, line+17);
                 sheet.setValueAt(val.errorT, 9, line+17);
                 sheet.setValueAt(val.uncertaintyT, 13, line+17);
-                
+                count++;
                 cdata.add(val);
             }
             String name = notePath+type.num+"_"+type.device.model + ".ods";

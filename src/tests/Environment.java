@@ -79,9 +79,9 @@ public class Environment {
         _findData(data[1], data[3], 1);
         _corection();
         String[] solution = new String[2];
-        solution[0]= "("+new_data[0]+ " ÷ "+new_data[1]+")°C";
+        solution[0]= "("+new_data[0]+ " Ã· "+new_data[1]+")Â°C";
         solution[0]= solution[0].replace(".", ",");
-        solution[1]= "("+new_data[2]+ " ÷ "+new_data[3]+")%Rh";
+        solution[1]= "("+new_data[2]+ " Ã· "+new_data[3]+")%Rh";
         solution[1]= solution[1].replace(".", ",");
         return solution;
     }    
