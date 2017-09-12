@@ -55,9 +55,15 @@ public class Console extends JFrame {
     
     //informacje odnośnie warunków środowiskowych
     private static JTextField[] environment = new JTextField[4];   
-    private static double enviromentCondition[] = {22.0, 22.0, 45.0, 45.0};
+    private static double[] enviromentCondition = {22.0, 22.0, 45.0, 45.0};
     
     //przypisanie warunków środowiskowych
+    
+    private static void _environment(){
+    	for(int i=0; i<4; i++)
+    		enviromentCondition[i]=Double.parseDouble(
+    				environment[i].getText().replace(",", "."));
+    }
     
     private static JPanel _environ(){
         JPanel jp = new JPanel();
@@ -290,6 +296,7 @@ public class Console extends JFrame {
                  make.putDevice(devices);
                  make.putPaths(notes.getText(), certificate.getText());
                  Environment d= new Environment();
+                 _environment();
                  make.putEnvironment(d.calculateData(enviromentCondition));
                  make.run(data);
                  try {
@@ -404,6 +411,7 @@ public class Console extends JFrame {
                 make.putPatern(patern);
                 make.putPaths(notes.getText(), certificate.getText());
                 Environment d= new Environment();
+                _environment();
                 make.putEnvironment(d.calculateData(enviromentCondition));
                 make.run(data);
                 try {

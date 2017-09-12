@@ -17,16 +17,27 @@ public class StandardPoint {
 	}
 	
 	static int[][] sort(int[][] array){
-		for(int i=0; i<array[0].length; i++){
-			for(int j=array[0].length-1; j>i; j--){
-				if(array[0][j]<array[0][j-1] && 
-						(array[0][j]==array[0][j-1] || array[1][j]<array[1][j-1])){
-					int t = array[0][j],
+		if(array.length==2)
+			for(int i=0; i<array[0].length; i++){
+				for(int j=array[0].length-1; j>i; j--){
+					if(array[0][j]<array[0][j-1] && 
+							(array[0][j]==array[0][j-1] || array[1][j]<array[1][j-1])){
+						int t = array[0][j],
 							rh = array[1][j];
-					array[0][j] = array[0][j-1];
-					array[1][j] = array[1][j-1];
-					array[0][j-1] = t;
-					array[1][j-1] = rh;
+						array[0][j] = array[0][j-1];
+						array[1][j] = array[1][j-1];
+						array[0][j-1] = t;
+						array[1][j-1] = rh;
+				}
+			}
+		}else{
+			for(int i=0; i<array[0].length; i++){
+				for(int j=array[0].length-1; j>i; j--){
+					if(array[0][j]<array[0][j-1]){
+						int t = array[0][j];
+						array[0][j] = array[0][j-1];
+						array[0][j-1] = t;
+					}
 				}
 			}
 		}

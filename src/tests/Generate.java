@@ -293,6 +293,7 @@ public class Generate {
                 }
                 cdata.add(val);
             }
+            if(cdata.isEmpty()) return;
             String name = notePath+type.num+"_"+type.device.model + ".ods";
             sheet.getSpreadSheet().saveAs(new File(name));
             _generateCal(cdata,type);

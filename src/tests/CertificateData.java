@@ -82,7 +82,7 @@ public class CertificateData {
 			calibrationCode = calibrationCode.replace("-N("+points+")", "");
 		}catch(StringIndexOutOfBoundsException e){}
 		calibrationCode=calibrationCode.replaceAll("SW", "");
-		String[] data = calibrationCode.split("x");
+		String[] data = calibrationCode.split("X");
 		int s;
 		try{
 			s=Integer.parseInt(data[0]);
