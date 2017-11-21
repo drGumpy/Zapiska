@@ -73,7 +73,7 @@ public class CertificateData {
     	}
     }
     
-    private static int _findCode(Certificate cal){
+    private static boolean _findCode(Certificate cal){
 		String calibrationCode= cal.calibrationCode.toUpperCase();
 		String points="";
 		try{
@@ -86,9 +86,11 @@ public class CertificateData {
 		int s;
 		try{
 			s=Integer.parseInt(data[0]);
-			cal.point=StandardPoint.point(points,calibration);
-			if(s==2)
+			if(s!=calibration && s!=2) return true;
+			if(s==2){
+				if(calibration!=1) return true;
 				cal.channelNumber=2;
+			}
 			else if(data.length==2){
 				int channel = _check(data[1]);
 				cal.channelNumber=channel;
@@ -96,19 +98,19 @@ public class CertificateData {
 			}else{
 				cal.channelNumber=1;
 			}
+			cal.point=StandardPoint.point(points,calibration);
 		}catch(NumberFormatException e){
-			s=0;
+			System.out.println("błąd kodu wzorcowania");
+			return true;
 		}
-    	return s;
+    	return false;
     }
     
     private static void _verificate(){
     	for(int i=0; i<data.size(); i++){
-    		boolean q=true;
-    		int s= _findCode(data.get(i));
-    		if(s==calibration) q=false;
-    		if(calibration==1 && s==2) q= false;
+    		boolean q= _findCode(data.get(i));
     		if(q){
+    		//	System.out.println(data.get(i).calibrationCode);
     			data.remove(i);
     			i--;
     		}

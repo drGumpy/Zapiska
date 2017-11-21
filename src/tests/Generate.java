@@ -167,11 +167,11 @@ public class Generate {
         ArrayList<CertificateValue> cdata = new ArrayList<CertificateValue>();
         try {
             final Sheet sheet = SpreadSheet.createFromFile(note).getSheet(DisplayedText.noteSheet);
+            int line =3;
             for(int i=0; i<point; i++){
                 if(device.q[i] || !dataProbe[i].question)
                     continue;
                 CertificateValue val= new CertificateValue();
-                int line = i*32+3;
                 sheet.setValueAt(type.num, 3 , line);
                 sheet.setValueAt(type.calibrationCode, 8 , line);
                 sheet.setValueAt(type.calibrationDate, 13 , line);
@@ -285,11 +285,13 @@ public class Generate {
                     sheet.setValueAt(val.deviceRh, 7, line+14);
                     sheet.setValueAt(val.errorRh, 9, line+14);
                     sheet.setValueAt(val.uncertaintyRh, 13, line+14);
+                    line+=19;
                 }else{
                     sheet.setValueAt(val.probeT, 5, line+17);
                     sheet.setValueAt(val.deviceT, 7, line+17);
                     sheet.setValueAt(val.errorT, 9, line+17);
                     sheet.setValueAt(val.uncertaintyT, 13, line+17);
+                    line+=32;
                 }
                 cdata.add(val);
             }

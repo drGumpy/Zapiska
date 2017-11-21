@@ -149,8 +149,8 @@ public class IRGenerate {
     
     //znalezienie odpowiednich szablonów
     private void _findData(){
-    	note = new File(DisplayedText.notePath[1]);
-    	cal = new File(DisplayedText.certificatePath[1]);
+    	note = new File(DisplayedText.notePath[4]);
+    	cal = new File(DisplayedText.certificatePath[4]);
     }
     //umieszczanie danych na temat wzorcowania
     void putEnvironment(String[] environment){
@@ -177,7 +177,9 @@ public class IRGenerate {
         for(int i=0; i<n; i++){
             if(devices.size()==0) break;
             String name = data.get(i).deviceSerial;
+//          System.out.println("szukam: "+name);
             for(int j=0; j<devices.size(); j++){
+//            	System.out.println(devices.get(j).name);
                 if(devices.get(j).name.equals(name)){
                     _generateDoc(devices.get(j), data.get(i));
                     devices.remove(j);

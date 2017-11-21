@@ -15,11 +15,13 @@ public class DisplayedText {
 	static String[] notePath = {"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowań\\Zapiski\\",
 			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods",
 			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods",
-			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_Rh.ods"};
+			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_Rh.ods",
+			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\z_T.ods"};
 	static String[] certificatePath={"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\Wyniki wzorcowań\\Świadectwa wzorcowania\\",
 			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_T.ods",
 			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Tx2.ods",
-			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Rh.ods"};
+			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_Rh.ods",
+			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\sw_IR.ods"};
 	
 	static String dataPath = "C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\";
 	

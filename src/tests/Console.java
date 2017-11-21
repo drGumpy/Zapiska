@@ -381,8 +381,10 @@ public class Console extends JFrame {
                     PaternProbe probe;
                     if(Rh)
                         probe= new RhProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\61602551.txt"));
+                    //	probe= new RhProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\20055774.txt"));
                     else
                         probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\13.026.txt"));
+                    //	probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12.926.txt"));
                     for(int i=0; i<point.size(); i++){
                         int t=Integer.parseInt(point.get(i).temp);
                         int rh=0;

@@ -405,9 +405,9 @@ public class IRChoose extends JDialog{
 			JTabbedPane tabbedPane = new JTabbedPane();
 			for(int i=0; i<num; i+=n){
 				if(num>i+n)
-					tabbedPane.addTab(i+1+" � "+(i+n), _panel(i, i+n));
+					tabbedPane.addTab(i+1+" ÷ "+(i+n), _panel(i, i+n));
 				else
-					tabbedPane.addTab(i+1+" � "+num, _panel(i, num));
+					tabbedPane.addTab(i+1+" ÷ "+num, _panel(i, num));
 			}
 			add(tabbedPane);
 		}else{

@@ -38,6 +38,7 @@ class Types{
          gap=2;
          Sheetname = "Zapiska Temp & RH";
          probe = "61602551";
+//         probe = "20055774";
          devicenum=21;
      }else{    //arkusz "Zapiska temp."
          datacol=33;
@@ -46,6 +47,7 @@ class Types{
          startdata=9;
          Sheetname = "Zapiska temp.";
          probe = "20098288";
+//         probe = "20068251";
          devicenum=31;
      }
  }

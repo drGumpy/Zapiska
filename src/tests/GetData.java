@@ -144,6 +144,7 @@ public class GetData {
             }            
             devices.add(device);
         }
+        
         return devices;
     }
     
