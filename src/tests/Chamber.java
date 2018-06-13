@@ -64,7 +64,6 @@ public class Chamber {
     	ChamberData d1 = null, d2=null, d=null;
         int b=0;
         for(int i=0; i<standardPoint.size(); i++){
-            System.out.println(i);
             if(standardPoint.get(i).valueT ==t1 && standardPoint.get(i).valueRh==rh){
                 d1=standardPoint.get(i);
                 b++;
@@ -195,7 +194,6 @@ public class Chamber {
             }
         }
         ChamberData d = new ChamberData();
-        System.out.println("nic");
         return d;
     }
     
@@ -233,9 +231,9 @@ public class Chamber {
         this.Rh=Rh;
         File file;
         if(Rh)
-            file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12-03914 Rh.txt");
+            file= new File(DisplayedText.dataPath+"12-03914 Rh.txt");
         else
-            file= new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12-03914 t.txt");
+            file= new File(DisplayedText.dataPath+"12-03914 t.txt");
         try {
             _find(file);
         } catch (FileNotFoundException e) {

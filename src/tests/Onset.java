@@ -18,7 +18,7 @@ class Onset extends Data{
         
         String[] linedate = when[0].split("\\.");
         
-        d.date = linedate[1]+"."+linedate[0]+".20"+linedate[2];
+        d.date = linedate[1]+"."+linedate[0]+"."+linedate[2];
         
         d.temp = Data[2];
         

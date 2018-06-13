@@ -16,8 +16,8 @@ class Testo extends Data{
         Data d= new Data(RH);
         d.num =Integer.parseInt(Data[0]);
         
-        String[] linedate = when[0].split("-");
-        d.date = linedate[2]+"."+linedate[1]+"."+linedate[0];
+        String[] linedate = when[0].split("\\.");
+        d.date = linedate[0]+"."+linedate[1]+"."+linedate[2];
         
         String[] linetime = when[1].split(":");
          d.time = linetime[0]+":"+linetime[1];

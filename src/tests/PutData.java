@@ -21,7 +21,7 @@ public class PutData {
     //parametry wzorcowania i plik docelowy
     static boolean Rh = true;                            //wzorcowanie wilgotności
     static int points = 5;                                 //liczba punktów wzorcowania
-    static File file= new File("C:/Users/Laboratorium/Desktop/Laboratorium.ods");
+    static File file= new File(DisplayedText.sheet);
     
     //zmienne z danymi o wzorcowaniu
     static Types typ = new Types();                        //dane o wzocoeania
@@ -67,7 +67,7 @@ public class PutData {
             //punkt pomiarowy
             int num=0;          
             //folder z plikami
-            File path = new File("C:/Users/Laboratorium/Desktop/Wyniki z wzorca/");
+            File path = new File(DisplayedText.probeDataPath);
             String[] list;
             //lista pilków z wynikiami wzorca + sortowanie po nazwie
             list=path.list(); //
@@ -93,7 +93,7 @@ public class PutData {
                     if(!correctName){
                     System.out.println("Otwieranie pliku: "+list[fileNum]);
                     BufferedReader in;
-                    in = new BufferedReader(new FileReader("C:/Users/Laboratorium/Desktop/Wyniki z wzorca/"+list[fileNum]));
+                    in = new BufferedReader(new FileReader(DisplayedText.probeDataPath+list[fileNum]));
                     //wyrzucenie pustych lini
                     for(int i=0; i<47; i++){
                        line = in.readLine();
@@ -173,12 +173,12 @@ public class PutData {
             final Sheet sheet = SpreadSheet.createFromFile(typ.file).getSheet(typ.Sheetname);
             //ścieżka do danych z rejestratorów + ich rozszerzenie
             String[] path = {
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\Hobo\\",
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\DT-172\\",
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\testo\\",
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\RC\\",
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\Lascar\\",
-                    "C:\\Users\\Laboratorium\\Documents\\rejestratory\\EBI\\"
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\Hobo\\",
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\DT-172\\",
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\testo\\",
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\RC\\",
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\Lascar\\",
+                    "C:\\Users\\Franek\\Documents\\rejestratory\\EBI\\"
                     };
             String[] kon = {".txt",".csv",".csv",".txt",".txt",".csv"};
             //szukanie danych rejestratorów uwzględnionych w zapisce
@@ -256,7 +256,6 @@ public class PutData {
     }
     
     static void run(){
- 
         try{
             //zebranie danych z arkusza
             _putLoggerData();

@@ -11,6 +11,7 @@ public class StandardPoint {
 		int[] point = new int[2];
 		data = data.replaceAll("\\[|\\]", "");
 		String[] d = data.split(";");
+		if(d.length!=2) return null;
 		point[0]= toInt(d[0]);
 		point[1]= toInt(d[1]);
 		return point;
@@ -61,10 +62,13 @@ public class StandardPoint {
 			break;
 		case 3:
 			point = new int[2][points.length];
+			int j=0;
 			for(int i=0; i<points.length; i++){
 				int[] number = humPoint(points[i]);
-				point[0][i]= number[0];
-				point[1][i]= number[1];
+				if(number==null) continue;
+				point[0][j]= number[0];
+				point[1][j]= number[1];
+				j++;
 			}
 			break;
 		default: return null;

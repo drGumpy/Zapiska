@@ -331,7 +331,7 @@ public class IRChoose extends JDialog{
 				blackBodyData[i]= new TProbe(
 						new File(path+blackBody[i]+".txt"));
 				for(int j=0; j<points.length; j++){
-					blackBodyError[i][j]= blackBodyData[i].get(points[i], 0);
+					blackBodyError[i][j]= blackBodyData[i].get(points[j], 0);
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println(blackBody[i]+": adres error");

@@ -13,7 +13,7 @@ public class Environment {
     int[] range = new int[4];
     
     //plik z informacjami o urządzeniu do odczytu danych
-    private File doc = new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\w-srod.txt");
+    private File doc = new File(DisplayedText.dataPath+"w-srod.txt");
     
     //pobranie danych o wzorcowaniu
     private void _find(){

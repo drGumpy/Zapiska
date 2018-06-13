@@ -45,9 +45,9 @@ public class Console extends JFrame {
     
     //pozycja arkusza, zapisu świadectw i zapisek wzorcowania
     private static JTextField
-     sheet = new JTextField(50),
-     certificate = new JTextField(50),
-     notes = new JTextField(50);
+		sheet = new JTextField(50),
+		certificate = new JTextField(50),
+		notes = new JTextField(50);
     
     private static AbstractButton t, rh;
     
@@ -279,7 +279,7 @@ public class Console extends JFrame {
                 try {
                     dataProbe = new DataProbe[point.size()];
                     PaternProbe probe;
-                    probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12030011.txt"));
+                    probe= new TProbe(new File(DisplayedText.dataPath+"12030011.txt"));
                     for(int i=0; i<point.size(); i++){
                         int t=Integer.parseInt(point.get(i).temp);
                         dataProbe[i]=probe.get(t, 0);
@@ -367,6 +367,7 @@ public class Console extends JFrame {
                     CertificateData.run();
                     data=CertificateData.getData();
                 } catch (IOException e1) {
+                	System.out.println("błąd odczytu danych o zleceniu");
                 }
                 try {
                     GetData.setData(Rh);
@@ -380,11 +381,11 @@ public class Console extends JFrame {
                     dataProbe = new DataProbe[point.size()];
                     PaternProbe probe;
                     if(Rh)
-                        probe= new RhProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\61602551.txt"));
-                    //	probe= new RhProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\20055774.txt"));
+                        probe= new RhProbe(new File(DisplayedText.dataPath+"61602551.txt"));
+                    //	probe= new RhProbe(new File(DisplayedText.dataPath+"20055774.txt"));
                     else
-                        probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\13.026.txt"));
-                    //	probe= new TProbe(new File("C:\\Users\\Laboratorium\\Desktop\\Laboratorium\\generacja\\12.926.txt"));
+                        probe= new TProbe(new File(DisplayedText.dataPath+"13.026.txt"));
+                    //	probe= new TProbe(new File(DisplayedText.dataPath+"12.926.txt"));
                     for(int i=0; i<point.size(); i++){
                         int t=Integer.parseInt(point.get(i).temp);
                         int rh=0;
@@ -467,7 +468,7 @@ public class Console extends JFrame {
     	c.weightx=1;
     	c.gridy=1;
     	add(_choosePath("Arkusz z danymi",
-    			"C:\\Users\\Laboratorium\\Desktop\\Laboratorium.ods", sheet), c);
+    			DisplayedText.sheet, sheet), c);
     	
     	c.gridy=2;
     	add(_choosePath("Folder zapisu zapisek z wzorcowania",

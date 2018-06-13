@@ -10,10 +10,10 @@ class CEM extends Data{
     }
  
     public Data divide(String line){
-        String[] Data = line.split(",");
+        String[] Data = line.split("\t");
         String[] when =Data[5].split("/");
         Data d= new Data(RH);
-        d.num =Integer.parseInt(Data[0]);
+      //  d.num =Integer.parseInt(Data[0]);
         
          String[] linedate = when[0].split("-");
          d.date = linedate[0]+"."+linedate[1]+".20"+linedate[2];
